@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <title>مرکز فرماندهی ابری سئوگرام (Seogram Cloud Admin)</title>
   
   <!-- Tailwind CSS CDN -->
@@ -42,13 +43,37 @@
     .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen bg-slate-950 font-sans antialiased">
 
   <!-- Toast Notification -->
   <div id="toast" class="toast font-bold text-xs flex items-center gap-2.5">
     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
     <span id="toast-text">عملیات با موفقیت انجام شد</span>
   </div>
+
+  <!-- 1. AUTH GATE (Private Login Screen) -->
+  <div id="auth-gate" class="fixed inset-0 z-50 bg-slate-950 flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl text-center">
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 to-indigo-600 text-white flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/20">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h2 class="text-xl font-black text-white mb-2">ورود به مرکز فرماندهی سئوگرام</h2>
+      <p class="text-xs text-slate-400 mb-6">این پنل خصوصی است. لطفاً گذرواژه امنیتی دسترسی به پنل مدیریت را وارد فرمایید.</p>
+      
+      <form onsubmit="handleAuthLogin(event)" class="space-y-4">
+        <div>
+          <input type="password" id="auth-password-input" placeholder="گذرواژه امنیتی..." required autofocus class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm text-center tracking-wider focus:outline-none focus:border-emerald-500 transition">
+        </div>
+        <p id="auth-error-msg" class="text-xs text-rose-400 font-bold hidden">گذرواژه وارد شده نادرست است!</p>
+        <button type="submit" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-sm font-bold transition shadow-lg shadow-emerald-500/20">
+          تأیید و ورود امن
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. ADMIN APP (Hidden until authenticated) -->
+  <div id="admin-app" class="hidden min-h-screen flex flex-col bg-slate-50 text-slate-900">
 
   <!-- Header -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
@@ -91,6 +116,11 @@
         <button onclick="loadRealData()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
           بروزرسانی
+        </button>
+
+        <button onclick="handleAuthLogout()" title="خروج امن و قفل مجدد پنل" class="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition flex items-center gap-1 border border-rose-200 shadow-sm">
+          <span>🔒</span>
+          <span class="hidden sm:inline">خروج</span>
         </button>
       </div>
     </div>
@@ -311,8 +341,56 @@
   <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
     مرکز فرماندهی سئوگرام (Seogram) | متصل به پایگاه داده ابری Supabase و Google Gemini 3.8 | پشتیبانی ۲۴/۷ با GitHub Actions
   </footer>
+  </div> <!-- /admin-app -->
 
   <script>
+    // Master Security & Auth Gate (SHA-256)
+    const MASTER_HASH = '85109e1efc7229e6b2b54cfcb19113d4451de819c5161c79855ec3bd53213db1'; // Kolsoom123456@
+
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function checkAuth() {
+      const isAuth = sessionStorage.getItem('seogram_auth_session');
+      if (isAuth === 'true') {
+        document.getElementById('auth-gate').classList.add('hidden');
+        document.getElementById('admin-app').classList.remove('hidden');
+        loadRealData();
+      } else {
+        document.getElementById('auth-gate').classList.remove('hidden');
+        document.getElementById('admin-app').classList.add('hidden');
+      }
+    }
+
+    async function handleAuthLogin(e) {
+      e.preventDefault();
+      const input = document.getElementById('auth-password-input');
+      const val = input.value.trim();
+      const h = await sha256(val);
+      const customHash = localStorage.getItem('seogram_custom_password_hash');
+      
+      if (h === MASTER_HASH || (customHash && h === customHash)) {
+        sessionStorage.setItem('seogram_auth_session', 'true');
+        document.getElementById('auth-error-msg').classList.add('hidden');
+        document.getElementById('auth-gate').classList.add('hidden');
+        document.getElementById('admin-app').classList.remove('hidden');
+        showToast('✓ خوش آمدید! ورود امن با موفقیت تأیید شد.');
+        loadRealData();
+      } else {
+        document.getElementById('auth-error-msg').classList.remove('hidden');
+        input.select();
+      }
+    }
+
+    function handleAuthLogout() {
+      sessionStorage.removeItem('seogram_auth_session');
+      location.reload();
+    }
+
     // Supabase Configuration
     const SUPABASE_URL = 'https://hiicvzmiwfwqkuhnongz.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpaWN2em1pd2Z3cWt1aG5vbmd6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTY3MTQ2MSwiZXhwIjoyMTA1MjQ3NDYxfQ.lUrV3s8wPVGcpj-o1DHXLNyy44ALR_czEL_jqCrjuuM';
@@ -678,8 +756,8 @@
       copyText(state.currentModalHtml, 'کد HTML مقاله');
     }
 
-    // Initialize on page load
-    loadRealData();
+    // Initialize on page load (Security Check)
+    checkAuth();
   </script>
 </body>
 </html>
