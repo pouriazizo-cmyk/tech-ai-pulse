@@ -1,0 +1,36 @@
+name: SEOGRAM 24/7 Autonomous Publisher
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish_batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Cloud Fleet Publisher
+        run: node scripts/cloud_fleet_publisher.js 15
+        env:
+          SUPABASE_URL: "https://hiicvzmiwfwqkuhnongz.supabase.co"
+          SUPABASE_SERVICE_ROLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpaWN2em1pd2Z3cWt1aG5vbmd6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTY3MTQ2MSwiZXhwIjoyMTA1MjQ3NDYxfQ.lUrV3s8wPVGcpj-o1DHXLNyy44ALR_czEL_jqCrjuuM"
+
+      - name: Commit and Push Status Updates
+        run: |
+          git config --global user.name "SEOGRAM Bot"
+          git config --global user.email "bot@seogram.local"
+          git add publish_status.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(fleet): update published status [skip ci]" && git push origin main)

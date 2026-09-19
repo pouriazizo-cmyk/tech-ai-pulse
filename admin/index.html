@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مرکز فرماندهی ابری سئوگرام (Seogram Cloud Admin)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Vazirmatn', 'Tahoma', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#ecfdf5', 600: '#059669', 700: '#047857' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Vazirmatn', Tahoma, sans-serif; background-color: #f8fafc; color: #0f172a; }
+    .toast {
+      position: fixed; bottom: 24px; left: 24px; z-index: 100;
+      background: #0f172a; color: white; padding: 14px 24px;
+      border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      transform: translateY(100px); opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast font-bold text-xs flex items-center gap-2.5">
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+    <span id="toast-text">عملیات با موفقیت انجام شد</span>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between py-4 gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-slate-900 to-indigo-950 text-white flex items-center justify-center shadow-md">
+          <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-black text-slate-900 tracking-tight">مرکز فرماندهی ابری سئوگرام (Seogram)</h1>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">100% ONLINE</span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium">مدیریت مستقل ۴ وبلاگ، هوش مصنوعی Gemini و انتشار ابری ۲۴/۷ با GitHub Actions</p>
+        </div>
+      </div>
+
+      <!-- Live Engine Controls -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Supabase Live DB</span>
+        </div>
+
+        <a href="https://github.com/pouriazizo-cmyk/tech-ai-pulse/actions" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition">
+          <svg class="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          لاگ‌های گیت‌هاب اکشن ↗
+        </a>
+
+        <button id="btn-dispatch-action" onclick="triggerGitHubAction()" class="px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          <svg class="w-4 h-4 animate-spin hidden" id="dispatch-spinner" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          <span id="dispatch-label">⚡ اجرای دستی پابلیشر</span>
+        </button>
+
+        <button onclick="promptChangePat()" title="تنظیم یا تغییر توکن شخصی گیت‌هاب (PAT)" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">
+          <span>🔑</span>
+          <span class="hidden sm:inline">توکن گیت‌هاب</span>
+        </button>
+
+        <button onclick="loadRealData()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          بروزرسانی
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live 4-Blog Network Banner -->
+  <section class="bg-slate-900 text-white border-b border-slate-800 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <h2 class="text-sm font-black tracking-wide uppercase text-slate-300">وضعیت زنده شبکه ۴ وبلاگ سئوگرام (Online Fleet)</h2>
+        </div>
+        <span class="text-xs text-slate-400 font-mono" id="last-sync-time">آخرین همگام‌سازی: در حال بررسی...</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- 1. GitHub Pages -->
+        <div class="bg-slate-800/90 rounded-2xl p-4 border border-slate-700/80 hover:border-indigo-500/50 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">GitHub Pages</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          </div>
+          <h3 class="text-sm font-bold text-white mb-1">نبض وب و هوش مصنوعی</h3>
+          <div class="flex items-baseline gap-2 mb-3">
+            <span class="text-2xl font-black text-emerald-400">۱,۰۰۰</span>
+            <span class="text-xs text-slate-400">مطلب اختصاصی زنده</span>
+          </div>
+          <a href="https://pouriazizo-cmyk.github.io/tech-ai-pulse/" target="_blank" class="w-full block text-center py-1.5 bg-slate-700/80 hover:bg-slate-700 rounded-xl text-xs font-bold text-slate-200 transition">
+            مشاهده وبلاگ زنده ↗
+          </a>
+        </div>
+
+        <!-- 2. GitLab Pages -->
+        <div class="bg-slate-800/90 rounded-2xl p-4 border border-slate-700/80 hover:border-orange-500/50 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-orange-950 text-orange-300 border border-orange-800">GitLab Pages</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          </div>
+          <h3 class="text-sm font-bold text-white mb-1">استودیو فونت و دیزاین</h3>
+          <div class="flex items-baseline gap-2 mb-3">
+            <span class="text-2xl font-black text-emerald-400">۱,۰۰۰</span>
+            <span class="text-xs text-slate-400">مطلب اختصاصی زنده</span>
+          </div>
+          <a href="https://design-font-lab-011e29.gitlab.io/" target="_blank" class="w-full block text-center py-1.5 bg-slate-700/80 hover:bg-slate-700 rounded-xl text-xs font-bold text-slate-200 transition">
+            مشاهده وبلاگ زنده ↗
+          </a>
+        </div>
+
+        <!-- 3. Blogfa -->
+        <div class="bg-slate-800/90 rounded-2xl p-4 border border-slate-700/80 hover:border-amber-500/50 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">Blogfa</span>
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          </div>
+          <h3 class="text-sm font-bold text-white mb-1">نبض وب (بلاگفا)</h3>
+          <div class="flex items-baseline gap-2 mb-3">
+            <span id="blogfa-stat-count" class="text-2xl font-black text-amber-400">۷۰+</span>
+            <span class="text-xs text-slate-400">منتشر شده (در حال تکمیل)</span>
+          </div>
+          <a href="https://ooblog.blogfa.com" target="_blank" class="w-full block text-center py-1.5 bg-slate-700/80 hover:bg-slate-700 rounded-xl text-xs font-bold text-slate-200 transition">
+            مشاهده وبلاگ بلاگفا ↗
+          </a>
+        </div>
+
+        <!-- 4. Rozblog -->
+        <div class="bg-slate-800/90 rounded-2xl p-4 border border-slate-700/80 hover:border-pink-500/50 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-800">Rozblog</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          </div>
+          <h3 class="text-sm font-bold text-white mb-1">استودیو طراحی (رزبلاگ)</h3>
+          <div class="flex items-baseline gap-2 mb-3">
+            <span id="rozblog-stat-count" class="text-2xl font-black text-pink-400">۹۶+</span>
+            <span class="text-xs text-slate-400">سقف روزانه ۱۰۰ فعال</span>
+          </div>
+          <a href="https://ooblog.rozblog.com" target="_blank" class="w-full block text-center py-1.5 bg-slate-700/80 hover:bg-slate-700 rounded-xl text-xs font-bold text-slate-200 transition">
+            مشاهده وبلاگ رزبلاگ ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Tabs -->
+  <nav class="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm font-bold">
+      <button onclick="switchTab('articles')" id="tab-articles" class="py-4 border-b-2 border-emerald-600 text-emerald-700 transition flex items-center gap-2">
+        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+        مقالات دیتابیس ابری
+        <span id="badge-total-articles" class="px-2 py-0.5 rounded-full text-xs bg-emerald-100 text-emerald-800">...</span>
+      </button>
+
+      <button onclick="switchTab('authors')" id="tab-authors" class="py-4 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2">
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        بانک نویسندگان مستقل (۱۴۰ نویسنده)
+      </button>
+
+      <button onclick="switchTab('links')" id="tab-links" class="py-4 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2">
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+        پیوندهای مفید سایدبار (Backlinks)
+      </button>
+
+      <button onclick="switchTab('queue')" id="tab-queue" class="py-4 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2">
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        صف واکشی RSS
+        <span id="badge-queue" class="px-2 py-0.5 rounded-full text-xs bg-slate-100 text-slate-700">...</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Body -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+    <!-- 1. ARTICLES TAB -->
+    <div id="view-articles" class="space-y-6">
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <div class="flex-1 flex flex-wrap items-center gap-3">
+          <input type="text" id="search-articles-input" onkeyup="filterArticles()" placeholder="جستجو در عناوین و خلاصه مقالات..." class="flex-1 min-w-[240px] px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:outline-none focus:border-indigo-500">
+          
+          <select id="filter-platform-select" onchange="filterArticles()" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 focus:outline-none">
+            <option value="all">همه وبلاگ‌ها</option>
+            <option value="github">فقط گیت‌هاب پیجز (Tech Pulse)</option>
+            <option value="gitlab">فقط گیت‌لب پیجز (Design Lab)</option>
+            <option value="blogfa">فقط بلاگفا (نبض وب)</option>
+            <option value="rozblog">فقط رزبلاگ (استودیو طراحی)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Articles List -->
+      <div id="articles-container" class="space-y-4">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <!-- 2. AUTHORS TAB -->
+    <div id="view-authors" class="hidden space-y-6">
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-black text-slate-900">بانک نویسندگان مستقل شبکه وبلاگ‌ها</h3>
+          <input type="text" onkeyup="filterAuthors(this.value)" placeholder="جستجوی نام نویسنده..." class="px-4 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none">
+        </div>
+        <p class="text-xs text-slate-500 mb-6">هر وبلاگ دارای نویسندگان مجزا، پروفایل‌ها و تخصص‌های مختلف است تا هیچ‌گونه شباهت ساختاری یا اثری از یکسان بودن نویسنده‌ها پدیدار نگردد.</p>
+        <div id="authors-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. LINKS TAB -->
+    <div id="view-links" class="hidden space-y-6">
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+        <h3 class="text-base font-black text-slate-900 mb-2">مدیریت پیوندهای مفید سئو (Dofollow Backlinks)</h3>
+        <p class="text-xs text-slate-500 mb-6">این پیوندها به صورت خودکار در سایدبار تمامی وبلاگ‌های شبکه منتشر می‌شوند و اعتبار پیوندی دامنه اصلی را افزایش می‌دهند.</p>
+
+        <!-- Add Link Form -->
+        <form onsubmit="handleAddLink(event)" class="flex flex-col sm:flex-row gap-3 mb-8">
+          <input type="text" id="new-link-title" placeholder="عنوان پیوند (مثلاً: ابزار آنالیز سئو)" required class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500">
+          <input type="url" id="new-link-url" placeholder="https://example.com" required class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 dir-ltr text-left">
+          <button type="submit" class="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm shrink-0">
+            + افزودن پیوند جدید
+          </button>
+        </form>
+
+        <div id="links-container" class="space-y-3">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. QUEUE TAB -->
+    <div id="view-queue" class="hidden space-y-6">
+      <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
+        <h3 class="text-base font-black text-slate-900 mb-2">صف پردازش خودکار RSS و هوش مصنوعی</h3>
+        <p class="text-xs text-slate-500 mb-6">فیدهای خبری ورودی توسط مدل زبانی Gemini تحلیل، ترجمه و به مقالات یونیک تبدیل می‌شوند.</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs">
+            <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-3">عنوان خبر خام</th>
+                <th class="p-3">منبع</th>
+                <th class="p-3">وضعیت</th>
+                <th class="p-3">تاریخ واکشی</th>
+              </tr>
+            </thead>
+            <tbody id="queue-table-body" class="divide-y divide-slate-100">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Article Preview Modal -->
+  <div id="preview-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <h4 id="modal-title" class="text-base font-black text-slate-900 truncate">عنوان مقاله</h4>
+        <button onclick="closePreviewModal()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 flex items-center justify-center text-slate-600 transition">✕</button>
+      </div>
+      <div id="modal-body" class="p-6 overflow-y-auto custom-scroll text-sm leading-relaxed text-slate-800 flex-1">
+        <!-- Content -->
+      </div>
+      <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-3">
+        <button onclick="copyModalHtml()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold">
+          📄 کپی کد HTML کامل
+        </button>
+        <button onclick="closePreviewModal()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold">
+          بستن
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    مرکز فرماندهی سئوگرام (Seogram) | متصل به پایگاه داده ابری Supabase و Google Gemini 3.8 | پشتیبانی ۲۴/۷ با GitHub Actions
+  </footer>
+
+  <script>
+    // Supabase Configuration
+    const SUPABASE_URL = 'https://hiicvzmiwfwqkuhnongz.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpaWN2em1pd2Z3cWt1aG5vbmd6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTY3MTQ2MSwiZXhwIjoyMTA1MjQ3NDYxfQ.lUrV3s8wPVGcpj-o1DHXLNyy44ALR_czEL_jqCrjuuM';
+    function getGitHubPat() {
+      let pat = localStorage.getItem('seogram_github_pat');
+      if (!pat) {
+        pat = prompt('جهت ارسال دستور اجرای آنی به گیت‌هاب اکشن، لطفاً توکن شخصی گیت‌هاب (PAT) خود را وارد فرمایید (فقط در مرورگر شما ذخیره می‌شود):');
+        if (pat && pat.trim()) {
+          pat = pat.trim();
+          localStorage.setItem('seogram_github_pat', pat);
+        }
+      }
+      return pat || '';
+    }
+
+    function promptChangePat() {
+      const current = localStorage.getItem('seogram_github_pat') || '';
+      const entered = prompt('توکن گیت‌هاب (GitHub PAT) خود را وارد کنید:', current);
+      if (entered !== null) {
+        localStorage.setItem('seogram_github_pat', entered.trim());
+        showToast('✓ توکن گیت‌هاب با موفقیت در مرورگر ذخیره شد');
+      }
+    }
+
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let state = {
+      articles: [],
+      authors: [],
+      links: [],
+      queue: [],
+      status: {},
+      currentModalHtml: ''
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function copyText(text, label) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`✓ ${label} با موفقیت کپی شد`);
+      });
+    }
+
+    function switchTab(tabId) {
+      const tabs = ['articles', 'authors', 'links', 'queue'];
+      tabs.forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`tab-${t}`);
+        if (view) view.classList.add('hidden');
+        if (btn) {
+          btn.classList.remove('border-emerald-600', 'text-emerald-700');
+          btn.classList.add('border-transparent', 'text-slate-500');
+        }
+      });
+      const activeView = document.getElementById(`view-${tabId}`);
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      if (activeView) activeView.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.remove('border-transparent', 'text-slate-500');
+        activeBtn.classList.add('border-emerald-600', 'text-emerald-700');
+      }
+    }
+
+    function formatFaDate(dStr) {
+      try {
+        return new Intl.DateTimeFormat('fa-IR', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(dStr));
+      } catch {
+        return 'اخیراً';
+      }
+    }
+
+    // Trigger GitHub Action dispatch directly from browser
+    async function triggerGitHubAction() {
+      const btn = document.getElementById('btn-dispatch-action');
+      const spinner = document.getElementById('dispatch-spinner');
+      const label = document.getElementById('dispatch-label');
+
+      btn.disabled = true;
+      spinner.classList.remove('hidden');
+      label.innerText = 'در حال ارسال درخواست...';
+
+      const pat = getGitHubPat();
+      if (!pat) {
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+        label.innerText = '⚡ اجرای دستی پابلیشر';
+        return;
+      }
+
+      try {
+        const res = await fetch('https://api.github.com/repos/pouriazizo-cmyk/tech-ai-pulse/actions/workflows/fleet_publisher.yml/dispatches', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/vnd.github.v3+json',
+            'Authorization': 'Bearer ' + pat,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ref: 'main' })
+        });
+
+        if (res.status === 204 || res.ok) {
+          showToast('✓ دستور اجرای ربات پابلیشر با موفقیت در گیت‌هاب اکشن ثبت شد');
+        } else {
+          const txt = await res.text();
+          alert('خطا در فراخوانی گیت‌هاب اکشن: ' + txt);
+        }
+      } catch (err) {
+        alert('خطای ارتباط با گیت‌هاب: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+        label.innerText = '⚡ اجرای دستی پابلیشر';
+      }
+    }
+
+    // Load Live Data
+    async function loadRealData() {
+      try {
+        // Fetch publish_status.json from current repository origin
+        try {
+          const res = await fetch('../publish_status.json?r=' + Date.now());
+          if (res.ok) {
+            state.status = await res.json();
+            if (state.status.blogfa_published) {
+              document.getElementById('blogfa-stat-count').innerText = state.status.blogfa_published + '+';
+            }
+            if (state.status.rozblog_published) {
+              document.getElementById('rozblog-stat-count').innerText = state.status.rozblog_published + '+';
+            }
+            if (state.status.last_updated) {
+              document.getElementById('last-sync-time').innerText = 'آخرین همگام‌سازی: ' + formatFaDate(state.status.last_updated);
+            }
+          }
+        } catch (e) {}
+
+        // Fetch articles from Supabase
+        const { data: arts, error: errA } = await client
+          .from('articles')
+          .select('id, title, slug, summary, content_html, featured_image_url, author_name, reading_time_minutes, created_at, tags, blogs(slug, title, platform)')
+          .order('created_at', { ascending: false })
+          .limit(80);
+
+        if (!errA && arts) {
+          state.articles = arts;
+          document.getElementById('badge-total-articles').innerText = state.articles.length;
+          renderArticles(state.articles);
+        }
+
+        // Fetch authors
+        const { data: authors } = await client
+          .from('authors')
+          .select('*, blogs(slug, title, platform)')
+          .order('name', { ascending: true });
+
+        if (authors) {
+          state.authors = authors;
+          renderAuthors(state.authors);
+        }
+
+        // Fetch useful links
+        const { data: links } = await client
+          .from('useful_links')
+          .select('*')
+          .order('sort_order', { ascending: true });
+
+        if (links) {
+          state.links = links;
+          renderLinks();
+        }
+
+        // Fetch queue
+        const { data: queue } = await client
+          .from('article_queue')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(20);
+
+        if (queue) {
+          state.queue = queue;
+          document.getElementById('badge-queue').innerText = state.queue.length;
+          renderQueue();
+        }
+
+        showToast('✓ داده‌های آنلاین از Supabase دریافت گردید');
+      } catch (err) {
+        console.error(err);
+        showToast('خطا در برقراری ارتباط');
+      }
+    }
+
+    function renderArticles(list) {
+      const container = document.getElementById('articles-container');
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="p-12 text-center text-slate-400 bg-white rounded-2xl border border-slate-200">مقاله‌ای یافت نشد.</div>';
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row gap-6 items-start">
+          ${item.featured_image_url ? `
+            <div class="w-full md:w-52 aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 shrink-0">
+              <img src="${item.featured_image_url.startsWith('http') ? item.featured_image_url : 'https://pouriazizo-cmyk.github.io/tech-ai-pulse/' + item.featured_image_url.replace(/^\//, '')}" 
+                   class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/400/250'">
+            </div>
+          ` : ''}
+          <div class="flex-1">
+            <div class="flex flex-wrap items-center gap-2 mb-2 text-xs text-slate-500">
+              <span class="px-2.5 py-0.5 rounded-full font-bold uppercase ${
+                item.blogs?.platform === 'github' ? 'bg-indigo-100 text-indigo-900' :
+                item.blogs?.platform === 'gitlab' ? 'bg-orange-100 text-orange-900' :
+                item.blogs?.platform === 'blogfa' ? 'bg-amber-100 text-amber-900' :
+                'bg-pink-100 text-pink-900'
+              }">${item.blogs?.title || item.blogs?.platform}</span>
+              <span>نویسنده: <strong class="text-slate-700">${item.author_name}</strong></span>
+              <span>•</span>
+              <span>${formatFaDate(item.created_at)}</span>
+              <span>•</span>
+              <span>${item.reading_time_minutes || 4} دقیقه مطالعه</span>
+            </div>
+            
+            <h3 class="text-base font-black text-slate-900 mb-2 leading-snug">${item.title}</h3>
+            <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">${item.summary || ''}</p>
+
+            <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
+              <button onclick="copyText('${item.title.replace(/'/g, "\\'")}', 'عنوان')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition">
+                📋 کپی عنوان
+              </button>
+
+              <button onclick="copyFullHtml('${item.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-sm">
+                📄 کپی HTML کامل
+              </button>
+
+              <button onclick="openPreviewModal('${item.id}')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition">
+                👁️ پیش‌نمایش
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterArticles() {
+      const q = document.getElementById('search-articles-input').value.trim().toLowerCase();
+      const platform = document.getElementById('filter-platform-select').value;
+
+      let list = state.articles;
+      if (platform !== 'all') {
+        list = list.filter(a => a.blogs?.platform === platform);
+      }
+      if (q) {
+        list = list.filter(a => (a.title && a.title.toLowerCase().includes(q)) || (a.summary && a.summary.toLowerCase().includes(q)));
+      }
+      renderArticles(list);
+    }
+
+    function copyFullHtml(articleId) {
+      const art = state.articles.find(a => a.id === articleId);
+      if (!art) return;
+      let fullHtml = '';
+      if (art.featured_image_url) {
+        const fullImg = art.featured_image_url.startsWith('http') ? art.featured_image_url : 'https://pouriazizo-cmyk.github.io/tech-ai-pulse/' + art.featured_image_url.replace(/^\//, '');
+        fullHtml += `<p style="text-align: center;"><img src="${fullImg}" alt="${art.title}" style="max-width: 100%; height: auto; border-radius: 12px;" /></p>\n`;
+      }
+      fullHtml += art.content_html || art.summary;
+      copyText(fullHtml, 'کد HTML کامل');
+    }
+
+    function renderAuthors(authorsList) {
+      const container = document.getElementById('authors-container');
+      container.innerHTML = authorsList.map(auth => `
+        <div class="p-3.5 rounded-2xl border border-slate-100 bg-slate-50 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs shrink-0">
+            ${auth.name.substring(0, 1)}
+          </div>
+          <div class="truncate">
+            <h5 class="text-xs font-bold text-slate-900 truncate">${auth.name}</h5>
+            <p class="text-[10px] text-slate-400 font-medium">${auth.blogs?.title || auth.blogs?.platform || 'نویسنده'}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterAuthors(query) {
+      const q = query.trim().toLowerCase();
+      const filtered = state.authors.filter(a => a.name.toLowerCase().includes(q));
+      renderAuthors(filtered);
+    }
+
+    function renderLinks() {
+      const container = document.getElementById('links-container');
+      container.innerHTML = state.links.map(l => `
+        <div class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-slate-50">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+            <a href="${l.url}" target="_blank" class="text-xs font-bold text-slate-900 hover:text-sky-600">${l.title}</a>
+            <span class="text-[11px] text-slate-400 font-mono">(${l.url})</span>
+          </div>
+          <button onclick="deleteLinkReal('${l.id}')" class="text-xs text-rose-500 hover:underline">حذف</button>
+        </div>
+      `).join('');
+    }
+
+    async function handleAddLink(e) {
+      e.preventDefault();
+      const title = document.getElementById('new-link-title').value.trim();
+      const url = document.getElementById('new-link-url').value.trim();
+      if (!title || !url) return;
+
+      try {
+        const { error } = await client.from('useful_links').insert({ title, url, rel: 'follow', sort_order: state.links.length + 1 });
+        if (error) throw error;
+        document.getElementById('new-link-title').value = '';
+        document.getElementById('new-link-url').value = '';
+        showToast('✓ لینک جدید با موفقیت اضافه شد');
+        loadRealData();
+      } catch (e) {
+        alert('خطا: ' + e.message);
+      }
+    }
+
+    async function deleteLinkReal(linkId) {
+      if (!confirm('آیا از حذف این پیوند اطمینان دارید؟')) return;
+      try {
+        await client.from('useful_links').delete().eq('id', linkId);
+        showToast('✓ پیوند حذف شد');
+        loadRealData();
+      } catch (e) {
+        alert('خطا: ' + e.message);
+      }
+    }
+
+    function renderQueue() {
+      const tbody = document.getElementById('queue-table-body');
+      tbody.innerHTML = state.queue.map(q => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-3 font-medium text-slate-900 max-w-md truncate">${q.raw_title}</td>
+          <td class="p-3">${q.source_name || '-'}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${q.status === 'completed' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${q.status}</span></td>
+          <td class="p-3 text-slate-500 font-mono text-[11px]">${formatFaDate(q.created_at)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function openPreviewModal(articleId) {
+      const art = state.articles.find(a => a.id === articleId);
+      if (!art) return;
+      document.getElementById('modal-title').innerText = art.title;
+      document.getElementById('modal-body').innerHTML = art.content_html || art.summary;
+      state.currentModalHtml = art.content_html || art.summary;
+      document.getElementById('preview-modal').classList.remove('hidden');
+    }
+
+    function closePreviewModal() {
+      document.getElementById('preview-modal').classList.add('hidden');
+    }
+
+    function copyModalHtml() {
+      copyText(state.currentModalHtml, 'کد HTML مقاله');
+    }
+
+    // Initialize on page load
+    loadRealData();
+  </script>
+</body>
+</html>
