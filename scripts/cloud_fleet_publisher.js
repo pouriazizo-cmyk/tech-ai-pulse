@@ -5,6 +5,10 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+const siteGenerator = require('./site_generator');
+const { generate1000TechArticles } = require('./data_tech_topics');
+const { generate1000DesignArticles } = require('./data_design_topics');
+
 const CURL = process.platform === 'win32' ? 'curl.exe' : 'curl';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://hiicvzmiwfwqkuhnongz.supabase.co';
@@ -13,6 +17,9 @@ const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1Ni
 const BLOGFA_BLOG_ID = '33333333-3333-3333-3333-333333333333';
 const ROZ_BLOG_ID = '44444444-4444-4444-4444-444444444444';
 const BLOGFA_FORM_URL = 'https://blogfa.com/desktop/Post.aspx?action=new&t=71554240';
+
+const GITLAB_TOKEN = process.env.GITLAB_TOKEN || 'glpat-McdMSexdGhOtBTjY44TUgmM6MQpvOjEKdTpwY2FnZQ8.01.171xwz569';
+const GITLAB_PROJECT_ID = process.env.GITLAB_PROJECT_ID || '86641701';
 
 const STATUS_FILE = path.resolve(__dirname, '..', 'publish_status.json');
 const ROZ_COOKIES = path.resolve(__dirname, 'roz_cookies.txt');
@@ -103,9 +110,11 @@ function getStatus() {
   return {
     github: 1000,
     gitlab: 1000,
-    blogfa_published: 64,
+    github_last_drip: null,
+    gitlab_last_drip: null,
+    blogfa_published: 70,
     blogfa_total: 1402,
-    rozblog_published: 96,
+    rozblog_published: 126,
     rozblog_total: 1002,
     last_updated: new Date().toISOString()
   };
@@ -137,6 +146,236 @@ async function fetchSupabaseArticles(blogId, offset, limit) {
   }
 }
 
+// --------------------------------------------------------------------------
+// 1. GITHUB PAGES CONTINUOUS DRIP PUBLISHER (Tech & AI Magazine)
+// --------------------------------------------------------------------------
+function dripGitHubArticle(status) {
+  const now = Date.now();
+  const lastDrip = status.github_last_drip ? new Date(status.github_last_drip).getTime() : 0;
+  const dripIntervalMs = 2 * 60 * 60 * 1000; // Natural 2-hour cadence (12 posts/day)
+
+  if (lastDrip && (now - lastDrip < dripIntervalMs)) {
+    const remMins = Math.round((dripIntervalMs - (now - lastDrip)) / 60000);
+    console.log(`⏳ [GitHub Drip] Next live article scheduled in ~${remMins} minutes.`);
+    return false;
+  }
+
+  console.log('\n--- 🚀 [GitHub Pages Drip] Publishing fresh live editorial article ---');
+  const ghAuthors = [
+    { name: 'امیرحسین پارسا' },
+    { name: 'ندا شریفی' },
+    { name: 'مهرداد ابراهیمی' },
+    { name: 'سهراب کریمی' },
+    { name: 'پروانه خسروی' }
+  ];
+
+  const currentCount = status.github || 1000;
+  const nextIdx = currentCount + 1;
+  const allTech = generate1000TechArticles(ghAuthors, []);
+  const baseArt = allTech[(nextIdx - 1) % allTech.length];
+
+  const todayIso = new Date().toISOString();
+  const todayYmd = todayIso.split('T')[0];
+  const slug = `${baseArt.slug}-drip-${nextIdx}`;
+
+  // Image selection
+  const ghRoot = path.resolve(__dirname, '..');
+  const imgDir = path.join(ghRoot, 'assets', 'images');
+  let imgName = 'tech-editorial-1.webp';
+  if (fs.existsSync(imgDir)) {
+    const imgs = fs.readdirSync(imgDir).filter(f => f.endsWith('.webp') && !f.includes('banner'));
+    if (imgs.length > 0) {
+      imgName = imgs[nextIdx % imgs.length];
+    }
+  }
+
+  const newArticle = {
+    ...baseArt,
+    slug: slug,
+    featured_image_url: `/assets/images/${imgName}`,
+    featured_image_alt: baseArt.title,
+    published_at: todayIso,
+    created_at: todayIso
+  };
+
+  const blog = {
+    title: 'نبض فناوری و هوش مصنوعی',
+    description: 'پایگاه تخصصی رویدادها و اخبار فناوری‌های نوین و مدل‌های زبانی',
+    target_url: 'https://pouriazizo-cmyk.github.io/tech-ai-pulse'
+  };
+
+  // 1. Write HTML with JSON-LD Schema
+  const postHtml = siteGenerator.generateTechArticle(blog, newArticle, [], allTech.slice(0, 3));
+  const postsDir = path.join(ghRoot, 'posts');
+  if (!fs.existsSync(postsDir)) fs.mkdirSync(postsDir, { recursive: true });
+  fs.writeFileSync(path.join(postsDir, `${slug}.html`), postHtml, 'utf8');
+
+  // 2. Prepend article card to index.html
+  const indexPath = path.join(ghRoot, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    let indexHtml = fs.readFileSync(indexPath, 'utf8');
+    const cardHtml = `
+            <article class="article-card bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between group">
+              <div>
+                <a href="posts/${slug}.html" class="block aspect-[16/9] overflow-hidden bg-slate-100 relative">
+                  <img src="assets/images/${imgName}" alt="${newArticle.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  <span class="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-0.5 rounded-full text-slate-700 shadow-sm">${newArticle.reading_time_minutes || 4} دقیقه</span>
+                </a>
+                <div class="p-6">
+                  <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                    <span class="font-bold text-sky-600">${newArticle.author_name}</span>
+                    <span>•</span>
+                    <span>هم‌اکنون</span>
+                  </div>
+                  <h3 class="text-base font-bold text-slate-900 group-hover:text-sky-600 transition leading-snug mb-2">
+                    <a href="posts/${slug}.html">${newArticle.title}</a>
+                  </h3>
+                  <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">${newArticle.summary || newArticle.meta_description || ''}</p>
+                </div>
+              </div>
+              <div class="px-6 pb-6 pt-0 flex items-center justify-between text-xs font-medium text-slate-500">
+                <div class="flex flex-wrap gap-1">
+                  ${(newArticle.tags || []).slice(0, 2).map(t => `<span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md text-[11px]"># ${t}</span>`).join('')}
+                </div>
+                <a href="posts/${slug}.html" class="text-sky-600 font-bold hover:underline">ادامه مطلب ←</a>
+              </div>
+            </article>`;
+
+    if (indexHtml.includes('<div id="articles-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">')) {
+      indexHtml = indexHtml.replace('<div id="articles-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">', `<div id="articles-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">\n${cardHtml}`);
+      fs.writeFileSync(indexPath, indexHtml, 'utf8');
+    }
+  }
+
+  // 3. Update sitemap.xml
+  const sitemapPath = path.join(ghRoot, 'sitemap.xml');
+  if (fs.existsSync(sitemapPath)) {
+    let sitemap = fs.readFileSync(sitemapPath, 'utf8');
+    const newEntry = `  <url>\n    <loc>${blog.target_url}/posts/${slug}.html</loc>\n    <lastmod>${todayYmd}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>`;
+    sitemap = sitemap.replace('</urlset>', newEntry);
+    fs.writeFileSync(sitemapPath, sitemap, 'utf8');
+  }
+
+  // 4. Update rss.xml
+  const rssPath = path.join(ghRoot, 'rss.xml');
+  if (fs.existsSync(rssPath)) {
+    let rss = fs.readFileSync(rssPath, 'utf8');
+    const itemXml = `    <item>\n      <title>${newArticle.title.replace(/&/g, '&amp;')}</title>\n      <link>${blog.target_url}/posts/${slug}.html</link>\n      <guid isPermaLink="true">${blog.target_url}/posts/${slug}.html</guid>\n      <pubDate>${new Date().toUTCString()}</pubDate>\n      <description>${(newArticle.summary || newArticle.title).replace(/&/g, '&amp;')}</description>\n      <author>${newArticle.author_name}</author>\n    </item>\n  </channel>`;
+    rss = rss.replace('  </channel>', itemXml);
+    fs.writeFileSync(rssPath, rss, 'utf8');
+  }
+
+  // 5. Ping Google Sitemap Endpoint
+  try {
+    execSync(`${CURL} -s --max-time 10 "https://www.google.com/ping?sitemap=${encodeURIComponent(blog.target_url + '/sitemap.xml')}"`);
+    console.log('✓ Google Search Console pinged for GitHub sitemap update.');
+  } catch (e) {}
+
+  status.github = nextIdx;
+  status.github_last_drip = todayIso;
+  console.log(`✓ [GitHub Drip] Article #${nextIdx} published successfully!`);
+  return true;
+}
+
+// --------------------------------------------------------------------------
+// 2. GITLAB PAGES CONTINUOUS DRIP PUBLISHER (Design & Typography Journal)
+// --------------------------------------------------------------------------
+async function dripGitLabArticle(status) {
+  const now = Date.now();
+  const lastDrip = status.gitlab_last_drip ? new Date(status.gitlab_last_drip).getTime() : 0;
+  const dripIntervalMs = 2 * 60 * 60 * 1000; // Natural 2-hour cadence
+
+  if (lastDrip && (now - lastDrip < dripIntervalMs)) {
+    const remMins = Math.round((dripIntervalMs - (now - lastDrip)) / 60000);
+    console.log(`⏳ [GitLab Drip] Next live article scheduled in ~${remMins} minutes.`);
+    return false;
+  }
+
+  console.log('\n--- 🚀 [GitLab Pages Drip] Publishing fresh live design editorial ---');
+  const glAuthors = [
+    { name: 'فرهاد طاهری' },
+    { name: 'سارا معتمد' },
+    { name: 'رامتین دادگر' },
+    { name: 'نگار خردمند' },
+    { name: 'کاوه اردلان' }
+  ];
+
+  const currentCount = status.gitlab || 1000;
+  const nextIdx = currentCount + 1;
+  const allDesign = generate1000DesignArticles(glAuthors, []);
+  const baseArt = allDesign[(nextIdx - 1) % allDesign.length];
+
+  const todayIso = new Date().toISOString();
+  const todayYmd = todayIso.split('T')[0];
+  const slug = `${baseArt.slug}-drip-${nextIdx}`;
+
+  const imgName = `design-editorial-${(nextIdx % 10) + 1}.webp`;
+
+  const newArticle = {
+    ...baseArt,
+    slug: slug,
+    featured_image_url: `/assets/images/${imgName}`,
+    featured_image_alt: baseArt.title,
+    published_at: todayIso,
+    created_at: todayIso
+  };
+
+  const blog = {
+    title: 'استودیو دیزاین، تایپوگرافی و تصویرسازی هوش مصنوعی',
+    description: 'ژورنال تخصصی دیزاین، تایپوگرافی، فونت و تصویرسازی هوش مصنوعی',
+    target_url: 'https://design-font-lab-011e29.gitlab.io'
+  };
+
+  const postHtml = siteGenerator.generateDesignArticle(blog, newArticle, [], allDesign.slice(0, 3));
+
+  // Push to GitLab via REST API Commits endpoint
+  try {
+    const commitPayload = {
+      branch: 'main',
+      commit_message: `feat(content): publish live editorial ${newArticle.title.substring(0, 45)} [skip ci]`,
+      actions: [
+        {
+          action: 'create',
+          file_path: `posts/${slug}.html`,
+          content: postHtml
+        }
+      ]
+    };
+
+    const res = await fetch(`https://gitlab.com/api/v4/projects/${GITLAB_PROJECT_ID}/repository/commits`, {
+      method: 'POST',
+      headers: {
+        'PRIVATE-TOKEN': GITLAB_TOKEN,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(commitPayload)
+    });
+
+    if (res.ok) {
+      status.gitlab = nextIdx;
+      status.gitlab_last_drip = todayIso;
+      console.log(`✓ [GitLab Drip] Article #${nextIdx} committed to GitLab Pages via REST API!`);
+
+      // Ping Google
+      try {
+        execSync(`${CURL} -s --max-time 10 "https://www.google.com/ping?sitemap=${encodeURIComponent(blog.target_url + '/sitemap.xml')}"`);
+        console.log('✓ Google Search Console pinged for GitLab sitemap update.');
+      } catch (e) {}
+
+      return true;
+    } else {
+      const txt = await res.text();
+      console.warn(`GitLab commit error status ${res.status}: ${txt}`);
+    }
+  } catch (err) {
+    console.warn('GitLab drip network exception:', err.message);
+  }
+  return false;
+}
+
+// --------------------------------------------------------------------------
+// 3. ROZBLOG BATCH PUBLISHER
+// --------------------------------------------------------------------------
 function publishRozblogArticle(panelBase, article) {
   const newPostUrl = `${panelBase}/new_post`;
   let html;
@@ -205,6 +444,9 @@ function publishRozblogArticle(panelBase, article) {
   }
 }
 
+// --------------------------------------------------------------------------
+// 4. BLOGFA BATCH PUBLISHER
+// --------------------------------------------------------------------------
 function publishBlogfaArticle(article, index, globalCount = 70) {
   let html;
   try {
@@ -284,6 +526,9 @@ function publishBlogfaArticle(article, index, globalCount = 70) {
   return false;
 }
 
+// --------------------------------------------------------------------------
+// 5. MASTER CYCLE EXECUTION
+// --------------------------------------------------------------------------
 async function runPublisherCycle(batchSize = 15) {
   console.log(`\n======================================================`);
   console.log(`🚀 SEOGRAM Cloud Publisher Starting (Batch Size: ${batchSize})`);
@@ -294,9 +539,27 @@ async function runPublisherCycle(batchSize = 15) {
   const rozPanel = ensureRozblogLogin();
   const status = getStatus();
 
-  console.log(`Current Status: Blogfa: ${status.blogfa_published}/${status.blogfa_total}, Rozblog: ${status.rozblog_published}/${status.rozblog_total}`);
+  console.log(`Current Status:`);
+  console.log(`  • GitHub:  ${status.github || 1000} (Last drip: ${status.github_last_drip || 'Never'})`);
+  console.log(`  • GitLab:  ${status.gitlab || 1000} (Last drip: ${status.gitlab_last_drip || 'Never'})`);
+  console.log(`  • Blogfa:  ${status.blogfa_published}/${status.blogfa_total}`);
+  console.log(`  • Rozblog: ${status.rozblog_published}/${status.rozblog_total}`);
 
-  // 1. Rozblog Batch
+  // 1. GitHub Pages Drip (Every 2 Hours)
+  try {
+    dripGitHubArticle(status);
+  } catch (err) {
+    console.error('GitHub drip error:', err.message);
+  }
+
+  // 2. GitLab Pages Drip (Every 2 Hours)
+  try {
+    await dripGitLabArticle(status);
+  } catch (err) {
+    console.error('GitLab drip error:', err.message);
+  }
+
+  // 3. Rozblog Batch
   if (status.rozblog_published < 1000) {
     console.log(`\n--- [Rozblog] Fetching next batch of ${batchSize} articles ---`);
     try {
@@ -326,7 +589,7 @@ async function runPublisherCycle(batchSize = 15) {
     console.log('✓ Rozblog target of 1,000 articles already achieved!');
   }
 
-  // 2. Blogfa Batch
+  // 4. Blogfa Batch
   if (status.blogfa_published < 1000) {
     console.log(`\n--- [Blogfa] Fetching next batch of ${batchSize} articles ---`);
     try {
