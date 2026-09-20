@@ -10,11 +10,69 @@
     <link rel="canonical" href="https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/ai-cloud-inference-ray-distributed-training-scaling-law-1.html">
     
     
-    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="alternate" type="application/rss+xml" title="نبض فناوری و هوش مصنوعی" href="https://pouriazizo-cmyk.github.io/tech-ai-pulse/rss.xml">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta property="og:type" content="website">
     <meta property="og:title" content="تحلیل فنی و عمیق: Ray Distributed AI Cluster؛ مدیریت بار محاسباتی توزیع‌شده میان هزاران پردازنده گرافیکی | نبض فناوری و هوش مصنوعی">
     <meta property="og:description" content="بررسی تخصصی Ray Distributed AI Cluster و نقش آن در زیرساخت ابری، آموزش توزیع‌شده و استنتاج مقیاس‌پذیر. تحلیل فنی معماری، بنچمارک‌های کارایی و راهنمای استقرار در سال ۲۰۲۶.">
-    <meta property="og:image" content="/assets/images/tech-editorial-1.webp">
+    <meta property="og:image" content="https://pouriazizo-cmyk.github.io/tech-ai-pulse/assets/images/tech-editorial-1.webp">
+    <meta property="og:url" content="https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/ai-cloud-inference-ray-distributed-training-scaling-law-1.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تحلیل فنی و عمیق: Ray Distributed AI Cluster؛ مدیریت بار محاسباتی توزیع‌شده میان هزاران پردازنده گرافیکی | نبض فناوری و هوش مصنوعی">
+    <meta name="twitter:description" content="بررسی تخصصی Ray Distributed AI Cluster و نقش آن در زیرساخت ابری، آموزش توزیع‌شده و استنتاج مقیاس‌پذیر. تحلیل فنی معماری، بنچمارک‌های کارایی و راهنمای استقرار در سال ۲۰۲۶.">
+    <meta name="twitter:image" content="https://pouriazizo-cmyk.github.io/tech-ai-pulse/assets/images/tech-editorial-1.webp">
+    <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "تحلیل فنی و عمیق: Ray Distributed AI Cluster؛ مدیریت بار محاسباتی توزیع‌شده میان هزاران پردازنده گرافیکی",
+    "description": "بررسی تخصصی Ray Distributed AI Cluster و نقش آن در زیرساخت ابری، آموزش توزیع‌شده و استنتاج مقیاس‌پذیر. تحلیل فنی معماری، بنچمارک‌های کارایی و راهنمای استقرار در سال ۲۰۲۶.",
+    "image": [
+      "https://pouriazizo-cmyk.github.io/tech-ai-pulse/assets/images/tech-editorial-1.webp"
+    ],
+    "datePublished": "2026-07-15T05:00:30.997Z",
+    "dateModified": "2026-07-15T05:00:30.997Z",
+    "author": {
+      "@type": "Person",
+      "name": "نسترن رزم‌جو"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "نبض فناوری و هوش مصنوعی",
+      "url": "https://pouriazizo-cmyk.github.io/tech-ai-pulse"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/ai-cloud-inference-ray-distributed-training-scaling-law-1.html"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "صفحه اصلی",
+        "item": "https://pouriazizo-cmyk.github.io/tech-ai-pulse/index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "مقالات تکنولوژی",
+        "item": "https://pouriazizo-cmyk.github.io/tech-ai-pulse/index.html#articles"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "تحلیل فنی و عمیق: Ray Distributed AI Cluster؛ مدیریت بار محاسباتی توزیع‌شده میان هزاران پردازنده گرافیکی",
+        "item": "https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/ai-cloud-inference-ray-distributed-training-scaling-law-1.html"
+      }
+    ]
+  }
+]
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +97,7 @@
       <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-          <span>۱۴۰۵ شهریور ۲۸, شنبه</span>
+          <span>۱۴۰۵ شهریور ۲۹, یکشنبه</span>
           <span class="text-slate-600 hidden sm:inline">|</span>
           <span class="text-slate-400 hidden sm:inline">پایگاه تخصصی رویدادها و اخبار فناوری‌های نوین و مدل‌های زبانی</span>
         </div>
@@ -100,7 +158,7 @@
               </div>
               <div>
                 <p class="font-bold text-slate-900 text-sm">نسترن رزم‌جو</p>
-                <p class="text-[11px] text-slate-400">منتشر شده در ۲۳ تیر ۱۴۰۵</p>
+                <p class="text-[11px] text-slate-400">منتشر شده در ۲۴ تیر ۱۴۰۵</p>
               </div>
             </div>
             <span class="bg-slate-100 px-3 py-1 rounded-full text-slate-600 font-bold">زمان مطالعه: 5 دقیقه</span>
