@@ -1,0 +1,770 @@
+[RB:Header]
+
+<!-- Google Font: Vazirmatn & Luxury Theme Styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* Hide default Rozblog header containing 'بلاگ ها' and theme toggle (Force Night Mode) */
+header.header, .header, #themeToggleBtn, .theme-toggle, [onclick*="themeToggle"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+:root {
+  color-scheme: dark !important;
+  --rb-bg: #070a13;
+  --rb-bg: #070a13;
+  --rb-surface: #0f172a;
+  --rb-card: rgba(15, 23, 42, 0.85);
+  --rb-card-hover: rgba(30, 41, 59, 0.95);
+  --rb-border: rgba(255, 255, 255, 0.08);
+  --rb-border-glow: rgba(139, 92, 246, 0.4);
+  --rb-text-main: #f8fafc;
+  --rb-text-sub: #94a3b8;
+  --rb-text-mute: #64748b;
+  --rb-emerald: #10b981;
+  --rb-violet: #8b5cf6;
+  --rb-cyan: #06b6d4;
+  --rb-amber: #f59e0b;
+  --rb-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%);
+  --rb-radius-sm: 8px;
+  --rb-radius-md: 14px;
+  --rb-radius-lg: 22px;
+  --rb-radius-full: 9999px;
+  --rb-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --rb-glow: 0 0 25px rgba(139, 92, 246, 0.25);
+  --rb-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  background-color: var(--rb-bg) !important;
+  color: var(--rb-text-main) !important;
+  line-height: 1.85 !important;
+  background-image: 
+    radial-gradient(at 15% 15%, rgba(139, 92, 246, 0.12) 0px, transparent 40%),
+    radial-gradient(at 85% 85%, rgba(6, 182, 212, 0.12) 0px, transparent 40%),
+    radial-gradient(at 50% 50%, rgba(16, 185, 129, 0.05) 0px, transparent 60%) !important;
+  background-attachment: fixed !important;
+}
+
+/* Luxury Top Header Bar */
+.rb-topbar-luxury {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rb-border);
+  padding: 16px 0;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.rb-topbar-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.rb-brand-title {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rb-brand-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.rb-brand-badge {
+  background: var(--rb-gradient);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--rb-radius-full);
+  -webkit-text-fill-color: #fff;
+}
+
+.rb-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rb-nav-pill {
+  color: var(--rb-text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--rb-border);
+  border-radius: var(--rb-radius-full);
+  transition: var(--rb-transition);
+}
+
+.rb-nav-pill:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--rb-violet);
+  transform: translateY(-2px);
+}
+
+.rb-nav-pill.cta {
+  background: var(--rb-gradient);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.35);
+}
+
+/* Main Layout Grid */
+.rb-main-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 30px;
+}
+
+@media (max-width: 900px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+.card, .post-card-luxury {
+  background: var(--rb-card) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid var(--rb-border) !important;
+  border-radius: var(--rb-radius-lg) !important;
+  padding: 30px !important;
+  margin-bottom: 28px !important;
+  box-shadow: var(--rb-shadow) !important;
+  transition: var(--rb-transition) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.card:hover, .post-card-luxury:hover {
+  transform: translateY(-4px) !important;
+  border-color: var(--rb-border-glow) !important;
+  box-shadow: var(--rb-glow), 0 15px 35px rgba(0, 0, 0, 0.5) !important;
+}
+
+.card::before, .post-card-luxury::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: var(--rb-gradient);
+  opacity: 0;
+  transition: var(--rb-transition);
+}
+
+.card:hover::before, .post-card-luxury:hover::before {
+  opacity: 1;
+}
+
+/* Post Titles */
+.post-title, h1.post-title {
+  font-size: 23px !important;
+  font-weight: 800 !important;
+  line-height: 1.5 !important;
+  margin-bottom: 14px !important;
+}
+
+.post-title a {
+  color: var(--rb-text-main) !important;
+  text-decoration: none !important;
+  transition: var(--rb-transition) !important;
+}
+
+.post-title a:hover {
+  color: var(--rb-cyan) !important;
+}
+
+/* Meta Data */
+.post-meta {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+  margin-bottom: 18px !important;
+  font-size: 13px !important;
+  color: var(--rb-text-mute) !important;
+  padding-bottom: 14px !important;
+  border-bottom: 1px solid var(--rb-border) !important;
+}
+
+.post-meta span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.post-meta a {
+  color: var(--rb-text-sub) !important;
+  text-decoration: none !important;
+}
+
+.post-meta a:hover {
+  color: var(--rb-violet) !important;
+}
+
+/* Post Content */
+.post-content {
+  font-size: 15px !important;
+  line-height: 1.95 !important;
+  color: #cbd5e1 !important;
+  word-wrap: break-word !important;
+}
+
+.post-content p {
+  margin-bottom: 16px !important;
+}
+
+.post-content img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: var(--rb-radius-md) !important;
+  margin: 18px 0 !important;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid var(--rb-border) !important;
+}
+
+.post-content h2, .post-content h3 {
+  color: #fff !important;
+  margin: 24px 0 12px 0 !important;
+}
+
+.post-content blockquote {
+  border-right: 4px solid var(--rb-violet) !important;
+  padding: 14px 20px !important;
+  background: rgba(139, 92, 246, 0.08) !important;
+  border-radius: var(--rb-radius-sm) !important;
+  margin: 18px 0 !important;
+  color: #e2e8f0 !important;
+  font-style: italic !important;
+}
+
+/* Read More Button */
+.read-more {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 9px 20px !important;
+  background: rgba(139, 92, 246, 0.12) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  border-radius: var(--rb-radius-full) !important;
+  color: #a78bfa !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-top: 18px !important;
+  transition: var(--rb-transition) !important;
+}
+
+.read-more:hover {
+  background: var(--rb-gradient) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important;
+  transform: translateX(-4px) !important;
+}
+
+/* Tags */
+.post-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-top: 20px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid var(--rb-border) !important;
+}
+
+.post-tags a {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 4px 12px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid var(--rb-border) !important;
+  border-radius: var(--rb-radius-full) !important;
+  color: var(--rb-text-sub) !important;
+  font-size: 12px !important;
+  text-decoration: none !important;
+  transition: var(--rb-transition) !important;
+}
+
+.post-tags a:hover {
+  background: rgba(6, 182, 212, 0.15) !important;
+  border-color: var(--rb-cyan) !important;
+  color: #fff !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Rating / Like Widget */
+.rating-section {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-top: 20px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid var(--rb-border) !important;
+}
+
+/* Widget Titles */
+.widget-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 18px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid var(--rb-border) !important;
+  position: relative !important;
+}
+
+.widget-title::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -1px !important;
+  right: 0 !important;
+  width: 40px !important;
+  height: 2px !important;
+  background: var(--rb-gradient) !important;
+}
+
+/* Sidebar Styling */
+.content-right {
+  order: 1;
+}
+
+.sidebar-left, aside.sidebar {
+  order: 2;
+}
+
+/* Dofollow Backlinks Card */
+.rb-dofollow-card {
+  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(139, 92, 246, 0.08)) !important;
+}
+
+.rb-dofollow-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rb-dofollow-item {
+  display: block;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--rb-radius-md);
+  text-decoration: none;
+  transition: var(--rb-transition);
+}
+
+.rb-dofollow-item:hover {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: var(--rb-violet);
+  transform: translateX(-4px);
+}
+
+.rb-dofollow-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rb-dofollow-desc {
+  font-size: 11px;
+  color: var(--rb-text-mute);
+  margin-top: 3px;
+}
+
+/* Search Box */
+.search-form {
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.search-form input[type="search"], .search-form input[type="text"] {
+  flex: 1 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--rb-border) !important;
+  border-radius: var(--rb-radius-full) !important;
+  padding: 9px 16px !important;
+  color: #fff !important;
+  font-family: inherit !important;
+  outline: none !important;
+  font-size: 13px !important;
+  transition: var(--rb-transition) !important;
+}
+
+.search-form input:focus {
+  border-color: var(--rb-violet) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.search-form button {
+  background: var(--rb-gradient) !important;
+  border: none !important;
+  color: #fff !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: var(--rb-transition) !important;
+}
+
+.search-form button:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important;
+}
+
+/* Pagination */
+.pagination-wrapper {
+  background: var(--rb-card) !important;
+  border: 1px solid var(--rb-border) !important;
+  border-radius: var(--rb-radius-lg) !important;
+  padding: 16px 24px !important;
+  margin-top: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.pagination a, .pagination span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 14px !important;
+  border-radius: var(--rb-radius-sm) !important;
+  color: var(--rb-text-main) !important;
+  text-decoration: none !important;
+  margin: 0 3px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.pagination a:hover, .pagination .current {
+  background: var(--rb-gradient) !important;
+  color: #fff !important;
+}
+
+/* Luxury Footer */
+.rb-footer-luxury {
+  background: rgba(7, 10, 19, 0.95);
+  border-top: 1px solid var(--rb-border);
+  padding: 40px 0 30px 0;
+  margin-top: 60px;
+  font-size: 13px;
+  color: var(--rb-text-sub);
+}
+
+.rb-footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+</style>
+
+<!-- Luxury Top Navigation Bar -->
+<div class="rb-topbar-luxury">
+  <div class="rb-topbar-inner">
+    <div class="rb-brand-title">
+      <a href="[RB:Blog_Url]">[RB:Blog_Title]</a>
+      <span class="rb-brand-badge">نسل جدید ۲۰۲۶</span>
+    </div>
+    <div class="rb-nav-links">
+      <a href="[RB:Blog_Url]" class="rb-nav-pill">صفحه نخست</a>
+      <a href="/archive" class="rb-nav-pill">آرشیو جامع</a>
+      <a href="/rss.xml" target="_blank" class="rb-nav-pill cta"><i class="fas fa-rss"></i> اشتراک فید</a>
+    </div>
+  </div>
+</div>
+
+<main class="main-content rb-main-container">
+
+<!-- Hero Slider: Selected Posts -->
+<RB:Selected_Posts_Block=1>
+<div class="selected-slider-wrapper" style="margin-bottom: 30px;">
+    <div class="owl-carousel owl-theme" id="selectedSlider">
+        <RB:Selected_Posts_Loop>
+            <div class="slider-item card" style="padding: 20px; margin-bottom: 0;">
+                <div class="slider-content">
+                    <div class="slider-category" style="margin-bottom: 10px;">
+                        <span class="slider-badge" style="background: var(--rb-gradient); padding: 4px 12px; border-radius: var(--rb-radius-full); font-size: 12px; color: #fff;"><i class="fas fa-star"></i> مطلب منتخب تحریریه</span>
+                    </div>
+                    <h2 class="slider-title post-title" style="margin-bottom: 10px;">
+                        <a href="[Selected_Posts_Link]">[Selected_Posts_Title]</a>
+                    </h2>
+                    <p class="slider-desc" style="color: var(--rb-text-sub); font-size: 14px; margin-bottom: 14px;">[Selected_Posts_Description]</p>
+                    <div class="slider-meta" style="font-size: 12px; color: var(--rb-text-mute); display: flex; gap: 15px; margin-bottom: 14px;">
+                        <span><i class="fas fa-eye"></i> [Selected_Posts_Views] بازدید</span>
+                        <span><i class="fas fa-calendar-alt"></i> [Selected_Posts_Date:1]</span>
+                    </div>
+                    <a href="[Selected_Posts_Link]" class="read-more">
+                        مطالعه مطلب کامل <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </RB:Selected_Posts_Loop>
+    </div>
+</div>
+</RB:Selected_Posts_Block>
+
+<div class="main-grid">
+
+    <!-- Content Right (Articles Column) -->
+    <div class="content-right">
+
+        <!-- Block Up Widgets -->
+        <RB:Block_Up>
+            <RB:Block_Up_Loop>
+                <div class="card"><div class="widget-title"><i class="fas fa-layer-group"></i> [Menu_Title]</div><div>[Menu_Code]</div></div>
+            </RB:Block_Up_Loop>
+        </RB:Block_Up>
+
+        <!-- Main Articles Loop -->
+        <ROZBLOG>
+            <article class="card post-card-luxury">
+                <h1 class="post-title"><a href="[Post_Link]">[Post_Title]</a></h1>
+                <div class="post-meta">
+                    <RB:Post_Author_Block><span><i class="fas fa-user-pen"></i> نویسنده: <a href="[Post_Author_Link]">[Post_Author]</a></span></RB:Post_Author_Block>
+                    <RB:Post_Date_Block><span><i class="fas fa-calendar-day"></i> [Post_Date]</span></RB:Post_Date_Block>
+                    <RB:Post_Hit_Block><span><i class="fas fa-eye"></i> [Post_Hit] بازدید</span></RB:Post_Hit_Block>
+                    <RB:Post_Comment_Block><span><i class="fas fa-comments"></i> <a href="[Post_Comment_Url]">[Post_Comment_Count] نظر</a></span></RB:Post_Comment_Block>
+                </div>
+                
+                <div class="post-content">
+                    <RB:Post_Image><img src="[Post_Image_Url]" alt="[Post_Title]" style="max-width:100%; border-radius:14px; margin-bottom:18px;"></RB:Post_Image>
+                    [Post_Content]
+                </div>
+
+                <RB:Post_More_Block>
+                    <div style="margin-top: 16px;">
+                        <a href="[Post_Link]" class="read-more">ادامه نوشته و مطالعه تفصیلی <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </RB:Post_More_Block>
+
+                <RB:Post_Tags_Block>
+                    <div class="post-tags">
+                        <i class="fas fa-tags" style="color:var(--rb-violet); align-self:center;"></i>
+                        <RB:Post_Tags_Loop><a href="[Post_Tags_Url]"># [Post_Tags_Title]</a></RB:Post_Tags_Loop>
+                    </div>
+                </RB:Post_Tags_Block>
+
+                <div class="rating-section">
+                    <div>
+                        <RB:Post_Rate_Block>
+                            [Post_Rate]
+                        </RB:Post_Rate_Block>
+                    </div>
+                    <div>
+                        <a href="[Post_Link]#comments" style="color:var(--rb-cyan); text-decoration:none; font-size:13px;"><i class="fas fa-comment-dots"></i> بخش دیدگاه‌ها</a>
+                    </div>
+                </div>
+            </article>
+        </ROZBLOG>
+
+        <!-- Related Posts -->
+        <RB:Related_Posts_Block>
+            <div class="card">
+                <div class="widget-title"><i class="fas fa-link"></i> مطالب مرتبط و خواندنی</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
+                    <RB:Related_Posts_Loop>
+                        <div style="padding: 10px; background: rgba(255,255,255,0.03); border-radius: var(--rb-radius-md); border: 1px solid var(--rb-border);">
+                            <a href="[Related_Post_Link]" style="text-decoration: none; color: inherit;">
+                                <div style="font-weight: 600; font-size: 13px; color: #fff; margin-bottom: 6px;">[Related_Post_Title]</div>
+                                <div style="font-size: 11px; color: var(--rb-text-mute);"><i class="fas fa-calendar"></i> [Related_Post_Date]</div>
+                            </a>
+                        </div>
+                    </RB:Related_Posts_Loop>
+                </div>
+            </div>
+        </RB:Related_Posts_Block>
+
+        <!-- Comments Section -->
+        <RB:Comment_Block>
+        <RB:Comment_Limit:50>
+        <div class="card">
+            <div class="widget-title"><i class="fas fa-comments"></i> نظرات و دیدگاه‌های کاربران</div>
+            
+            <RB:Comment_Form_Block>
+                <div class="comment-form-container" style="margin-bottom: 25px;">
+                    [Comment_Form]
+                </div>
+            </RB:Comment_Form_Block>
+
+            <RB:Comment_Display_Block>
+                <RB:Comment_Display_Loop>
+                    <div style="padding: 14px; background: rgba(255,255,255,0.03); border-radius: var(--rb-radius-md); margin-bottom: 12px; border: 1px solid var(--rb-border);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                            <strong style="color: var(--rb-cyan);"><i class="fas fa-user-circle"></i> [Comment_Author]</strong>
+                            <span style="color: var(--rb-text-mute); font-size: 12px;">[Comment_Date]</span>
+                        </div>
+                        <div style="font-size: 14px; color: #e2e8f0; line-height: 1.8;">
+                            [Comment_Content]
+                        </div>
+                    </div>
+                </RB:Comment_Display_Loop>
+            </RB:Comment_Display_Block>
+        </div>
+        </RB:Comment_Block>
+
+        <!-- Block Down Widgets -->
+        <RB:Block_Down>
+            <RB:Block_Down_Loop>
+                <div class="card"><div class="widget-title"><i class="fas fa-arrow-down"></i> [Menu_Title]</div><div>[Menu_Code]</div></div>
+            </RB:Block_Down_Loop>
+        </RB:Block_Down>
+
+        <!-- Pagination -->
+        <RB:Blog_Page_Block>
+            <div class="pagination-wrapper">
+                <div class="pagination">[Blog_Page]</div>
+                <div class="pagination-info" style="font-size: 13px; color: var(--rb-text-mute);">صفحات: [Blog_Page_Count]</div>
+            </div>
+        </RB:Blog_Page_Block>
+
+    </div>
+
+    <!-- Sidebar (Left Column) -->
+    <aside class="sidebar-left">
+
+        <!-- Search Box -->
+        <div class="card">
+            <div class="widget-title"><i class="fas fa-search"></i> جستجو در وبلاگ</div>
+            <form method="get" action="[RB:Blog_Url]" class="search-form">
+                <input type="search" name="search" placeholder="کلیدواژه مورد نظر را وارد کنید...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+
+        <!-- Luxury Dofollow SEO Backlinks Widget -->
+        <div class="card rb-dofollow-card">
+            <div class="widget-title" style="color: #c084fc;"><i class="fas fa-crown"></i> مراجع و پایگاه‌های برگزیده وب فارسی</div>
+            <div class="rb-dofollow-grid">
+                <a href="https://spacedesign.ir/store/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-layer-group" style="color: #38bdf8;"></i> اسپیس دیزاین</div>
+                    <div class="rb-dofollow-desc">مرجع تخصصی فایل‌های لایه باز، وکتور، فونت و فایل‌های گرافیکی باکیفیت</div>
+                </a>
+                <a href="https://rembg.ir/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-wand-magic-sparkles" style="color: #a855f7;"></i> ریمیکس بک‌گراند (Rembg)</div>
+                    <div class="rb-dofollow-desc">ابزار هوشمند حذف خودکار پس‌زمینه عکس با هوش مصنوعی و یک کلیک</div>
+                </a>
+                <a href="https://photoshap.ir/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-image" style="color: #06b6d4;"></i> فتوشاپ آنلاین فارسی</div>
+                    <div class="rb-dofollow-desc">ویرایشگر عکس، روتوش چهره و ابزار حرفه‌ای طراحی گرافیک آنلاین در مرورگر</div>
+                </a>
+                <a href="https://plugen.ir/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-plug" style="color: #10b981;"></i> پلاگن مارکت</div>
+                    <div class="rb-dofollow-desc">مارکت مرجع خرید و دانلود اسکریپت، افزونه‌ها و پلاگین‌های پیشرفته وب</div>
+                </a>
+                <a href="https://vpshost.ir/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-server" style="color: #f59e0b;"></i> وی‌پی‌اس هاستینگ</div>
+                    <div class="rb-dofollow-desc">سرور مجازی ابری پرسرعت، هاست لینوکس NVMe و زیرساخت حرفه‌ای وب</div>
+                </a>
+                <a href="https://ookala.ir/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-bag-shopping" style="color: #ec4899;"></i> اوکالا مگ</div>
+                    <div class="rb-dofollow-desc">راهنمای جامع نقد، بررسی تخصصی و معرفی بهترین کالاهای دیجیتال و روز</div>
+                </a>
+                <a href="https://romha.ir/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-mobile-screen-button" style="color: #6366f1;"></i> رام‌ها مرجع نرم‌افزار موبایل</div>
+                    <div class="rb-dofollow-desc">پایگاه رام‌های رسمی، فریمور اصلی، فایل فلش و راهنمای تعمیرات نرم‌افزاری</div>
+                </a>
+                <a href="https://podocast.ir/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-podcast" style="color: #14b8a6;"></i> پادوکست پلاس</div>
+                    <div class="rb-dofollow-desc">استودیو پادکست، روایتگری صوتی و کتاب‌های گویا با هوش مصنوعی</div>
+                </a>
+                <a href="https://vahedsystem.com/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-calculator" style="color: #eab308;"></i> واحد سیستم حسابداری</div>
+                    <div class="rb-dofollow-desc">سامانه یکپارچه نرم‌افزار حسابداری، انبارداری و اتوماسیون مالی</div>
+                </a>
+                <a href="https://pouriazizo-cmyk.github.io/tech-ai-pulse" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-microchip" style="color: var(--rb-cyan);"></i> پالس هوش مصنوعی و فناوری</div>
+                    <div class="rb-dofollow-desc">پلتفرم تحلیلی مدل‌های زبانی بزرگ، پردازش ابری و تحولات هوش مصنوعی</div>
+                </a>
+                <a href="https://design-font-lab-011e29.gitlab.io/" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-palette" style="color: #ec4899;"></i> استودیو دیزاین و تایپوگرافی</div>
+                    <div class="rb-dofollow-desc">مرجع تخصصی استانداردهای وب دیزاین، تایپوگرافی فارسی و طراحی رابط کاربری</div>
+                </a>
+                <a href="https://ooblog.blogfa.com" target="_blank" rel="follow" class="rb-dofollow-item">
+                    <div class="rb-dofollow-title"><i class="fas fa-terminal" style="color: #10b981;"></i> اوبلاگ بلاگفا</div>
+                    <div class="rb-dofollow-desc">مباحث مهندسی وب، معماری پایگاه داده و فناوری‌های ابری</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Native Rozblog Sidebar Blocks -->
+        [RB:Sidebar]
+
+    </aside>
+
+</div>
+</main>
+
+<!-- Luxury Footer -->
+<footer class="rb-footer-luxury">
+  <div class="rb-footer-inner">
+    <div>
+      <strong>[RB:Blog_Title]</strong> &copy; تمامی حقوق برای مدیریت وبلاگ محفوظ است.
+    </div>
+    <div>
+      طراحی قالب اختصاصی نسل جدید ۲۰۲۶ | قدرت گرفته از <a href="https://rozblog.com" target="_blank" style="color:var(--rb-cyan); text-decoration:none;">رزبلاگ</a>
+<!-- Force Night Mode Script -->
+<script>
+(function() {
+  try {
+    localStorage.setItem('darkMode', 'true');
+    localStorage.setItem('theme', 'dark');
+    document.documentElement.classList.remove('light-mode', 'day-mode', 'light');
+    document.body.classList.remove('light-mode', 'day-mode', 'light');
+    document.documentElement.classList.add('dark', 'dark-mode');
+    document.body.classList.add('dark', 'dark-mode');
+  } catch(e) {}
+})();
+</script>
+
+[RB:Footer]

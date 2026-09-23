@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title><-BlogAndPostTitle-></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="content-language" content="fa">
+<meta name="description" content="<-BlogMetaDescription->">
+<meta name="generator" content="Blogfa Ultra Modern 2026">
+<meta property="og:title" content="<-AutoPageTitle->">
+<meta property="og:site_name" content="<-BlogTitle->">
+<meta property="og:description" content="<-BlogMetaDescription->">
+<link rel="alternate" type="application/rss+xml" title="<-BlogTitle->" href="<-BlogXmlLink->" />
+<script src="https://theme.blogfa.com/public/theme.1.2.js" type="text/javascript"></script>
+<script type="text/javascript">
+ try {
+  cmt_caption[0]="نظرات";
+  cmt_caption[1]="ثبت نظر";
+  cmt_caption[2]="یک نظر";
+  cmt_caption[3]="نظر";
+  cmt_blogid="<-BlogId->";
+ } catch(e) {}
+</script>
+
+<!-- Google Font: Vazirmatn -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-primary: #0b0f19;
+  --bg-surface: #111827;
+  --bg-card: rgba(17, 24, 39, 0.75);
+  --bg-card-hover: rgba(31, 41, 55, 0.85);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(59, 130, 246, 0.35);
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --accent-cyan: #06b6d4;
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ec4899;
+  --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #0891b2 0%, #2563eb 50%, #7c3aed 100%);
+  --glow-shadow: 0 0 25px rgba(59, 130, 246, 0.2);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.85;
+  font-size: 15px;
+  background-image: 
+    radial-gradient(at 10% 10%, rgba(6, 182, 212, 0.12) 0px, transparent 45%),
+    radial-gradient(at 90% 90%, rgba(139, 92, 246, 0.12) 0px, transparent 45%),
+    radial-gradient(at 50% 50%, rgba(59, 130, 246, 0.06) 0px, transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Reading Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  z-index: 9999;
+  width: 0%;
+  transition: width 0.1s ease-out;
+}
+
+/* Container */
+.site-wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.ultra-header {
+  position: sticky;
+  top: 15px;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px 28px;
+  margin: 20px auto 35px auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-logo-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 900;
+  font-size: 22px;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+  flex-shrink: 0;
+}
+
+.brand-info h1 {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.brand-info h1 a {
+  color: var(--text-primary);
+  text-decoration: none;
+  background: linear-gradient(to left, #ffffff, #93c5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-info h2 {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-link-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-cyan);
+  transform: translateY(-2px);
+}
+
+.nav-link-btn.primary {
+  background: var(--accent-gradient);
+  border: none;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+}
+
+.nav-link-btn.primary:hover {
+  background: var(--accent-gradient-hover);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Layout Grid */
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+/* Content Column */
+.content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Post Card */
+.ultra-post-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.ultra-post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.ultra-post-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-glow);
+  box-shadow: var(--glow-shadow), 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+.ultra-post-card:hover::before {
+  opacity: 1;
+}
+
+/* Post Header */
+.post-card-header {
+  margin-bottom: 18px;
+}
+
+.post-meta-top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.post-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.post-chip.author {
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.post-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.post-title a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.post-title a:hover {
+  color: var(--accent-cyan);
+}
+
+/* Post Body Content */
+.post-body-content {
+  font-size: 15px;
+  line-height: 1.95;
+  color: #d1d5db;
+  word-wrap: break-word;
+}
+
+.post-body-content p {
+  margin-bottom: 16px;
+}
+
+.post-body-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: 18px 0;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.post-body-content h2, .post-body-content h3, .post-body-content h4 {
+  color: #fff;
+  font-weight: 700;
+  margin: 24px 0 12px 0;
+  line-height: 1.4;
+}
+
+.post-body-content h2 { font-size: 19px; border-right: 3px solid var(--accent-cyan); padding-right: 10px; }
+.post-body-content h3 { font-size: 17px; }
+
+.post-body-content blockquote {
+  border-right: 4px solid var(--accent-purple);
+  padding: 12px 20px;
+  background: rgba(139, 92, 246, 0.08);
+  border-radius: var(--radius-sm);
+  margin: 18px 0;
+  font-style: italic;
+  color: #e5e7eb;
+}
+
+.post-body-content ul, .post-body-content ol {
+  padding-right: 24px;
+  margin-bottom: 16px;
+}
+
+.post-body-content li {
+  margin-bottom: 6px;
+}
+
+.post-body-content a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.post-body-content pre, .post-body-content code {
+  font-family: 'Consolas', monospace;
+  direction: ltr;
+  text-align: left;
+  background: #0d1117;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+}
+
+.post-body-content code {
+  padding: 2px 6px;
+  font-size: 13px;
+  color: #38bdf8;
+}
+
+.post-body-content pre {
+  padding: 14px 18px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.post-body-content pre code {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+/* Extended Post Link */
+.extended-btn-wrap {
+  margin-top: 20px;
+}
+
+.extended-btn-wrap a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-full);
+  color: #60a5fa;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.extended-btn-wrap a:hover {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+  transform: translateX(-4px);
+}
+
+/* Tags in Post */
+.post-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-color);
+}
+
+.post-tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.post-tag-item:hover {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: var(--accent-cyan);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Post Card Footer */
+.post-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.post-comment-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 5px 12px;
+  background: rgba(6, 182, 212, 0.08);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  transition: var(--transition);
+}
+
+.post-comment-link a:hover {
+  background: var(--accent-cyan);
+  color: #000;
+}
+
+/* Pagination */
+.ultra-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.page-btn:hover {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--glow-shadow);
+  transform: translateY(-2px);
+}
+
+/* Sidebar */
+.sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sticky-sidebar-inner {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Sidebar Widget Card */
+.widget-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: var(--transition);
+}
+
+.widget-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.widget-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.widget-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--accent-gradient);
+}
+
+.widget-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--accent-cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+/* Profile Widget */
+.profile-author-box {
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin: 0 auto 14px auto;
+  border: 3px solid var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  object-fit: cover;
+  display: block;
+}
+
+.profile-about-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Widget Lists */
+.widget-list {
+  list-style: none;
+}
+
+.widget-list li {
+  margin-bottom: 8px;
+}
+
+.widget-list li:last-child {
+  margin-bottom: 0;
+}
+
+.widget-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  transition: var(--transition);
+}
+
+.widget-list a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-glow);
+  color: #fff;
+  transform: translateX(-4px);
+}
+
+.widget-list i {
+  font-style: normal;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+}
+
+/* Featured Partners / SEO Backlinks Widget */
+.widget-featured-links {
+  border: 1px solid rgba(6, 182, 212, 0.35) !important;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(6, 182, 212, 0.08)) !important;
+}
+.ultra-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ultra-link-card {
+  display: block;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  text-decoration: none !important;
+  transition: var(--transition);
+}
+.ultra-link-card:hover {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: var(--accent-cyan);
+  transform: translateX(-4px);
+}
+.ultra-link-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ultra-link-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+/* Tag Cloud Widget */
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-cloud-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 12px;
+  transition: var(--transition);
+}
+
+.tag-cloud-item:hover {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+  transform: translateY(-2px);
+}
+
+/* SEO Backlinks Widget */
+.seo-backlink-card {
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(6, 182, 212, 0.05));
+  position: relative;
+  overflow: hidden;
+}
+
+.seo-backlink-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  background: rgba(6, 182, 212, 0.2);
+  color: var(--accent-cyan);
+  border-radius: var(--radius-full);
+}
+
+.seo-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.seo-link-item {
+  display: block;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.seo-link-item:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: var(--accent-cyan);
+  transform: translateX(-4px);
+}
+
+.seo-link-title {
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.seo-link-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* Footer */
+.ultra-footer {
+  border-top: 1px solid var(--border-color);
+  background: rgba(11, 15, 25, 0.95);
+  backdrop-filter: blur(16px);
+  padding: 40px 0 30px 0;
+  margin-top: 60px;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-back-to-top:hover {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Custom HTML Box */
+.custom-html-wrapper {
+  margin-top: 15px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+  .sticky-sidebar-inner {
+    position: static;
+  }
+  .ultra-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .ultra-post-card {
+    padding: 22px;
+  }
+  .post-title {
+    font-size: 19px;
+  }
+}
+
+.clear { clear: both; }
+</style>
+</head>
+
+<body>
+<div id="scroll-progress"></div>
+
+<div class="site-wrapper">
+
+  <!-- Header -->
+  <header class="ultra-header">
+    <div class="brand-section">
+      <div class="brand-logo-badge">✦</div>
+      <div class="brand-info">
+        <h1><a href="<-BlogUrl->"><-BlogTitle-></a></h1>
+        <h2><-BlogDescription-></h2>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="/" class="nav-link-btn">خانه</a>
+      <a href="/posts/" class="nav-link-btn">عناوین نوشته‌ها</a>
+      <a href="<-BlogArchiveLink->" class="nav-link-btn">آرشیو</a>
+      <a href="<-BlogXmlLink->" target="_blank" class="nav-link-btn primary">فید RSS</a>
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <div class="main-layout">
+
+    <!-- Articles Column -->
+    <main class="content-column">
+      <BLOGFA>
+      <article class="ultra-post-card">
+        <header class="post-card-header">
+          <div class="post-meta-top">
+            <span class="post-chip author">نویسنده: <-PostAuthor-></span>
+            <span class="post-chip">تاریخ: <-PostDate-></span>
+            <span class="post-chip">ساعت: <-PostTime-></span>
+          </div>
+          <h2 class="post-title"><a href="<-PostLink->"><-PostTitle-></a></h2>
+        </header>
+
+        <div class="post-body-content">
+          <-PostContent->
+          <div class="clear"></div>
+        </div>
+
+        <BlogExtendedPost>
+          <div class="extended-btn-wrap">
+            <a href="<-PostLink->">ادامه و مطالعه کامل نوشته &larr;</a>
+          </div>
+        </BlogExtendedPost>
+
+        <BlogPostTagsBlock>
+          <div class="post-tags-container">
+            <BlogPostTags separator=" ">
+              <a href="<-TagLink->" class="post-tag-item">#<-TagName-></a>
+            </BlogPostTags>
+          </div>
+        </BlogPostTagsBlock>
+
+        <footer class="post-card-footer">
+          <div><a href="<-PostLink->" style="color:var(--text-muted);text-decoration:none;">لینک ثابت این نوشته</a></div>
+          <div class="post-comment-link">
+            <BlogComment>
+              <a href="<-PostLink->#comments"><span dir="rtl" comment-for="<-PostId->"></span></a>
+            </BlogComment>
+          </div>
+        </footer>
+      </article>
+      </BLOGFA>
+
+      <!-- Pagination -->
+      <BlogNextAndPreviousBlock>
+      <div class="ultra-pagination">
+        <div>
+          <BlogPreviousPageBlock>
+            <a href="<-BlogPreviousPageLink->" class="page-btn">&rarr; مطالب جدیدتر</a>
+          </BlogPreviousPageBlock>
+        </div>
+        <div>
+          <BlogNextPageBlock>
+            <a href="<-BlogNextPageLink->" class="page-btn">مطالب قدیمی‌تر &larr;</a>
+          </BlogNextPageBlock>
+        </div>
+      </div>
+      </BlogNextAndPreviousBlock>
+    </main>
+
+    <!-- Sidebar Column -->
+    <aside class="sidebar-column">
+      <div class="sticky-sidebar-inner">
+
+        <!-- Author Profile Widget -->
+        <BlogProfile>
+        <div class="widget-card">
+          <div class="widget-title"><span class="widget-icon">👤</span> درباره نویسنده</div>
+          <div class="profile-author-box">
+            <BlogPhoto><img src="<-BlogPhotoLink->" alt="پروفایل" class="profile-avatar"></BlogPhoto>
+            <p class="profile-about-text"><-BlogAbout-></p>
+          </div>
+        </div>
+        </BlogProfile>
+
+        <!-- Featured SEO Dofollow Backlinks Widget -->
+        <div class="widget-card seo-backlink-card">
+          <span class="seo-backlink-badge">ویژه</span>
+          <div class="widget-title"><span class="widget-icon">🔗</span> پایگاه‌های دانش و مراجع</div>
+          <div class="seo-links-grid">
+            <a href="https://pouriazizo-cmyk.github.io/tech-ai-pulse" target="_blank" rel="dofollow" class="seo-link-item">
+              <div class="seo-link-title">⚡ پالس هوش مصنوعی و فناوری</div>
+              <div class="seo-link-desc">مرجع تخصصی اخبار مدل‌های زبانی، هوش مصنوعی و مهندسی نرم‌افزار</div>
+            </a>
+            <a href="https://pouriazizo.gitlab.io/design-font-lab" target="_blank" rel="dofollow" class="seo-link-item">
+              <div class="seo-link-title">🎨 آزمایشگاه دیزاین و تایپوگرافی</div>
+              <div class="seo-link-desc">کاوش در اصول طراحی رابط کاربری، هویت بصری و فونت‌های مدرن فارسی</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <BlogCategoriesBlock>
+        <div class="widget-card">
+          <div class="widget-title"><span class="widget-icon">📂</span> موضوعات وبلاگ</div>
+          <ul class="widget-list">
+            <BlogCategories>
+              <li><a href="<-CategoryLink->"><span><-CategoryName-></span></a></li>
+            </BlogCategories>
+          </ul>
+        </div>
+        </BlogCategoriesBlock>
+
+        <!-- Tags Cloud Widget -->
+        <BlogTagsBlock>
+        <div class="widget-card">
+          <div class="widget-title"><span class="widget-icon">🏷️</span> برچسب‌های برگزیده</div>
+          <div class="tags-cloud">
+            <BlogTags>
+              <a href="<-TagLink->" class="tag-cloud-item">#<-TagName-> <i>(<-TagCount->)</i></a>
+            </BlogTags>
+          </div>
+        </div>
+        </BlogTagsBlock>
+
+        <!-- Archive Widget -->
+        <BlogArchiveBlock>
+        <div class="widget-card">
+          <div class="widget-title"><span class="widget-icon">📅</span> آرشیو مطالب</div>
+          <ul class="widget-list">
+            <BlogArchive>
+              <li><a href="<-ArchiveLink->"><span><-ArchiveTitle-></span></a></li>
+            </BlogArchive>
+          </ul>
+        </div>
+        </BlogArchiveBlock>
+
+        <!-- Recommended Partners & SEO Backlinks Widget (Sitewide DoFollow) -->
+        <div class="widget-card widget-featured-links">
+          <div class="widget-title"><span class="widget-icon">⭐</span> مراجع برگزیده وب فارسی</div>
+          <div class="ultra-links-grid">
+            <a href="https://spacedesign.ir/store/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>🎨</span> اسپیس دیزاین</div>
+              <div class="ultra-link-desc">مرجع تخصصی فایل‌های لایه باز، وکتور، فونت و طرح گرافیکی</div>
+            </a>
+            <a href="https://rembg.ir/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>✂️</span> ریمیکس بک‌گراند (Rembg)</div>
+              <div class="ultra-link-desc">حذف هوشمند پس‌زمینه عکس با هوش مصنوعی و یک کلیک</div>
+            </a>
+            <a href="https://photoshap.ir/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>🖌️</span> فتوشاپ آنلاین فارسی</div>
+              <div class="ultra-link-desc">ویرایشگر عکس، روتوش چهره و طراحی آنلاین در مرورگر</div>
+            </a>
+            <a href="https://plugen.ir/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>🧩</span> پلاگن مارکت</div>
+              <div class="ultra-link-desc">مارکت تخصصی خرید و دانلود انواع اسکریپت و پلاگین وب</div>
+            </a>
+            <a href="https://vpshost.ir/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>⚡</span> وی‌پی‌اس هاستینگ</div>
+              <div class="ultra-link-desc">سرور مجازی ابری NVMe پرسرعت و زیرساخت هاستینگ</div>
+            </a>
+            <a href="https://ookala.ir/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>🛍️</span> اوکالا مگ</div>
+              <div class="ultra-link-desc">راهنمای جامع نقد، بررسی و خرید آنلاین بهترین کالاها</div>
+            </a>
+            <a href="https://romha.ir/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>📱</span> رام‌ها مرجع نرم‌افزار موبایل</div>
+              <div class="ultra-link-desc">دانلود رام رسمی، فریمور اصلی، فایل فلش و آموزش تعمیرات</div>
+            </a>
+            <a href="https://podocast.ir/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>🎙️</span> پادوکست پلاس</div>
+              <div class="ultra-link-desc">پادکست و کتاب صوتی تولید شده با هوش مصنوعی</div>
+            </a>
+            <a href="https://vahedsystem.com/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>📊</span> واحد سیستم حسابداری</div>
+              <div class="ultra-link-desc">سامانه یکپارچه حسابداری و مدیریت مالی رستوران و فروشگاه</div>
+            </a>
+            <a href="https://ooblog.rozblog.com" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>💎</span> استودیو طراحی رزبلاگ</div>
+              <div class="ultra-link-desc">ژورنال تخصصی دیزاین، تایپوگرافی و هوش مصنوعی</div>
+            </a>
+            <a href="https://pouriazizo-cmyk.github.io/tech-ai-pulse" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>🚀</span> نبض وب و فناوری (GitHub)</div>
+              <div class="ultra-link-desc">مهندسی نرم‌افزار، هوش مصنوعی و رایانش ابری</div>
+            </a>
+            <a href="https://design-font-lab-011e29.gitlab.io/" target="_blank" rel="follow" class="ultra-link-card">
+              <div class="ultra-link-title"><span>✒️</span> استودیو دیزاین و فونت (GitLab)</div>
+              <div class="ultra-link-desc">استانداردهای مدرن وب، تایپوگرافی فارسی و UI/UX</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Blogroll / Links Widget -->
+        <BlogLinksBlock>
+        <div class="widget-card">
+          <div class="widget-title"><span class="widget-icon">🌐</span> پیوندهای وبلاگ</div>
+          <ul class="widget-list">
+            <BlogLinks>
+              <li><a href="<-LinkUrl->" target="_blank" rel="follow"><span><-LinkTitle-></span></a></li>
+            </BlogLinks>
+          </ul>
+        </div>
+        </BlogLinksBlock>
+
+        <!-- Custom HTML Code Widget -->
+        <div class="custom-html-wrapper">
+          <-BlogCustomHtml->
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="ultra-footer">
+  <div class="site-wrapper footer-content">
+    <div class="footer-brand">
+      <strong><-BlogTitle-></strong> &copy; تمامی حقوق برای نویسنده محفوظ است.
+    </div>
+    <div>
+      طراحی قالب اختصاصی نسل جدید ۲۰۲۶ | قدرت گرفته از <a href="http://www.blogfa.com" target="_blank" style="color:var(--accent-cyan);text-decoration:none;">بلاگفا</a>
+    </div>
+    <a href="#" class="footer-back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">بازگشت به بالا &uarr;</a>
+  </div>
+</footer>
+
+<script type="text/javascript">
+  // Scroll progress indicator
+  window.addEventListener('scroll', function() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    var el = document.getElementById('scroll-progress');
+    if (el) el.style.width = scrolled + '%';
+  });
+</script>
+
+</body>
+</html>
