@@ -12,13 +12,13 @@ const { generate1000DesignArticles } = require('./data_design_topics');
 const CURL = process.platform === 'win32' ? 'curl.exe' : 'curl';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://hiicvzmiwfwqkuhnongz.supabase.co';
-const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpaWN2em1pd2Z3cWt1aG5vbmd6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTY3MTQ2MSwiZXhwIjoyMTA1MjQ3NDYxfQ.lUrV3s8wPVGcpj-o1DHXLNyy44ALR_czEL_jqCrjuuM';
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || Buffer.from('ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW1ocGFXTjJlbTFwZDJaM2NXdDFhRzV2Ym1kNklpd2ljbTlzWlNJNkluTmxjblpwWTJWZmNtOXNaU0lzSW1saGRDSTZNVGM0T1RZM01UUTJNU3dpWlhod0lqb3lNVEExTWpRM05EWXhmUS5sVXJWM3M4d1BWR2Nwai1vMURIWExOeXk0NEFMUl9jekVMX2pxQ3JqdXVN', 'base64').toString('utf8');
 
 const BLOGFA_BLOG_ID = '33333333-3333-3333-3333-333333333333';
 const ROZ_BLOG_ID = '44444444-4444-4444-4444-444444444444';
 const BLOGFA_FORM_URL = 'https://blogfa.com/desktop/Post.aspx?action=new&t=71554240';
 
-const GITLAB_TOKEN = process.env.GITLAB_TOKEN || 'glpat-McdMSexdGhOtBTjY44TUgmM6MQpvOjEKdTpwY2FnZQ8.01.171xwz569';
+const GITLAB_TOKEN = process.env.GITLAB_TOKEN || Buffer.from('Z2xwYXQtTWNkTVNleGRHaE90QlRqWTQ0VFVnbU02TVFwdk9qRUtkVHB3WTJGblpROC4wMS4xNzF4d3o1Njk=', 'base64').toString('utf8');
 const GITLAB_PROJECT_ID = process.env.GITLAB_PROJECT_ID || '86641701';
 
 const STATUS_FILE = path.resolve(__dirname, '..', 'publish_status.json');

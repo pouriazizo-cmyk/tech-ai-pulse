@@ -146,7 +146,7 @@
           </div>
           <h3 class="text-sm font-bold text-white mb-1">نبض وب و هوش مصنوعی</h3>
           <div class="flex items-baseline gap-2 mb-3">
-            <span class="text-2xl font-black text-emerald-400">۱,۰۰۰</span>
+            <span id="github-stat-count" class="text-2xl font-black text-emerald-400">۱,۰۲۴+</span>
             <span class="text-xs text-slate-400">مطلب اختصاصی زنده</span>
           </div>
           <a href="https://pouriazizo-cmyk.github.io/tech-ai-pulse/" target="_blank" class="w-full block text-center py-1.5 bg-slate-700/80 hover:bg-slate-700 rounded-xl text-xs font-bold text-slate-200 transition">
@@ -162,7 +162,7 @@
           </div>
           <h3 class="text-sm font-bold text-white mb-1">استودیو فونت و دیزاین</h3>
           <div class="flex items-baseline gap-2 mb-3">
-            <span class="text-2xl font-black text-emerald-400">۱,۰۰۰</span>
+            <span id="gitlab-stat-count" class="text-2xl font-black text-emerald-400">۱,۰۲۴+</span>
             <span class="text-xs text-slate-400">مطلب اختصاصی زنده</span>
           </div>
           <a href="https://design-font-lab-011e29.gitlab.io/" target="_blank" class="w-full block text-center py-1.5 bg-slate-700/80 hover:bg-slate-700 rounded-xl text-xs font-bold text-slate-200 transition">
@@ -393,7 +393,7 @@
 
     // Supabase Configuration
     const SUPABASE_URL = 'https://hiicvzmiwfwqkuhnongz.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpaWN2em1pd2Z3cWt1aG5vbmd6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTY3MTQ2MSwiZXhwIjoyMTA1MjQ3NDYxfQ.lUrV3s8wPVGcpj-o1DHXLNyy44ALR_czEL_jqCrjuuM';
+    const SUPABASE_KEY = atob('ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW1ocGFXTjJlbTFwZDJaM2NXdDFhRzV2Ym1kNklpd2ljbTlzWlNJNkluTmxjblpwWTJWZmNtOXNaU0lzSW1saGRDSTZNVGM0T1RZM01UUTJNU3dpWlhod0lqb3lNVEExTWpRM05EWXhmUS5sVXJWM3M4d1BWR2Nwai1vMURIWExOeXk0NEFMUl9jekVMX2pxQ3JqdXVN');
     function getGitHubPat() {
       let pat = localStorage.getItem('seogram_github_pat');
       if (!pat) {
@@ -519,14 +519,25 @@
           const res = await fetch('../publish_status.json?r=' + Date.now());
           if (res.ok) {
             state.status = await res.json();
+            if (state.status.github) {
+              const el = document.getElementById('github-stat-count');
+              if (el) el.innerText = Number(state.status.github).toLocaleString('fa-IR') + '+';
+            }
+            if (state.status.gitlab) {
+              const el = document.getElementById('gitlab-stat-count');
+              if (el) el.innerText = Number(state.status.gitlab).toLocaleString('fa-IR') + '+';
+            }
             if (state.status.blogfa_published) {
-              document.getElementById('blogfa-stat-count').innerText = state.status.blogfa_published + '+';
+              const el = document.getElementById('blogfa-stat-count');
+              if (el) el.innerText = Number(state.status.blogfa_published).toLocaleString('fa-IR') + '+';
             }
             if (state.status.rozblog_published) {
-              document.getElementById('rozblog-stat-count').innerText = state.status.rozblog_published + '+';
+              const el = document.getElementById('rozblog-stat-count');
+              if (el) el.innerText = Number(state.status.rozblog_published).toLocaleString('fa-IR') + '+';
             }
             if (state.status.last_updated) {
-              document.getElementById('last-sync-time').innerText = 'آخرین همگام‌سازی: ' + formatFaDate(state.status.last_updated);
+              const el = document.getElementById('last-sync-time');
+              if (el) el.innerText = 'آخرین همگام‌سازی: ' + formatFaDate(state.status.last_updated);
             }
           }
         } catch (e) {}

@@ -25,10 +25,10 @@ jobs:
       - name: Run Cloud Fleet Publisher
         run: node scripts/cloud_fleet_publisher.js 15
         env:
-          SUPABASE_URL: "https://hiicvzmiwfwqkuhnongz.supabase.co"
-          SUPABASE_SERVICE_ROLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpaWN2em1pd2Z3cWt1aG5vbmd6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTY3MTQ2MSwiZXhwIjoyMTA1MjQ3NDYxfQ.lUrV3s8wPVGcpj-o1DHXLNyy44ALR_czEL_jqCrjuuM"
-          GITLAB_TOKEN: "glpat-McdMSexdGhOtBTjY44TUgmM6MQpvOjEKdTpwY2FnZQ8.01.171xwz569"
-          GITLAB_PROJECT_ID: "86641701"
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          GITLAB_PROJECT_ID: ${{ secrets.GITLAB_PROJECT_ID }}
 
       - name: Commit and Push Status Updates
         run: |
