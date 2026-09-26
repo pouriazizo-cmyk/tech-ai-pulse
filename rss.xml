@@ -719,5 +719,13 @@
       <description>تحلیل فنی و جامع Llama 3.3 70B در زمینه فشرده‌سازی دانش، فاین‌تیونینگ سازمانی و بازدهی محلی به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: Gemini 2.5 Pro؛ پردازش همزمان صوت و ویدیو با پنجره زمینه ۲ میلیون توکن</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/llm-deep-learning-gemini-2-5-multimodal-scaling-1-drip-1041.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/llm-deep-learning-gemini-2-5-multimodal-scaling-1-drip-1041.html</guid>
+      <pubDate>Sat, 26 Sep 2026 18:00:48 GMT</pubDate>
+      <description>تحلیل فنی و جامع Gemini 2.5 Pro در زمینه پردازش همزمان صوت و ویدیو با پنجره زمینه ۲ میلیون توکن به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
