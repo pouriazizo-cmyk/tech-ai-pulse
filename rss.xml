@@ -799,5 +799,13 @@
       <description>تحلیل فنی و جامع Gemini 2.5 Pro در زمینه پردازش همزمان صوت و ویدیو با پنجره زمینه ۲ میلیون توکن به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: Qwen 2.5 Coder؛ تولید خودکار کد و برتری در بنچمارک‌های HumanEval</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/llm-deep-learning-qwen-2-5-coding-benchmark-1-drip-1051.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/llm-deep-learning-qwen-2-5-coding-benchmark-1-drip-1051.html</guid>
+      <pubDate>Mon, 28 Sep 2026 07:37:15 GMT</pubDate>
+      <description>تحلیل فنی و جامع Qwen 2.5 Coder در زمینه تولید خودکار کد و برتری در بنچمارک‌های HumanEval به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
