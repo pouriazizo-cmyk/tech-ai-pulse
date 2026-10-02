@@ -959,5 +959,13 @@
       <description>تحلیل فنی و جامع Mistral Large 2 در زمینه مدل‌های مقرون‌به‌صرفه با ظرفیت استدلال در سطح سازمانی به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: FlashAttention-3؛ کاهش پیچیدگی حافظه در محاسبات ماتریسی توجه</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/llm-deep-learning-flashattention-3-speedup-1-drip-1071.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/llm-deep-learning-flashattention-3-speedup-1-drip-1071.html</guid>
+      <pubDate>Fri, 02 Oct 2026 16:44:17 GMT</pubDate>
+      <description>تحلیل فنی و جامع FlashAttention-3 در زمینه کاهش پیچیدگی حافظه در محاسبات ماتریسی توجه به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
