@@ -1199,5 +1199,13 @@
       <description>تحلیل فنی و جامع Quantization AWQ FP4 در زمینه کوانتایزیشن ۴ و ۸ بیتی بدون افت معنادار در دقت مدل به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: Nvidia Blackwell B200؛ تراشه دوگانه با ۲۰۸ میلیارد ترانزیستور و نسل پنجم NVLink</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/hardware-ai-chips-nvidia-blackwell-b200-architecture-1-drip-1101.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/hardware-ai-chips-nvidia-blackwell-b200-architecture-1-drip-1101.html</guid>
+      <pubDate>Thu, 08 Oct 2026 21:47:36 GMT</pubDate>
+      <description>تحلیل فنی و جامع Nvidia Blackwell B200 در زمینه تراشه دوگانه با ۲۰۸ میلیارد ترانزیستور و نسل پنجم NVLink به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
