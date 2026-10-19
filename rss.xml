@@ -1679,5 +1679,13 @@
       <description>تحلیل فنی و جامع TSMC 2nm GAA Process در زمینه ترانزیستورهای نانوشیت و آینده چگالی محاسباتی تراشه‌ها به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: HBM4 Memory Standard؛ رابط حافظه ۲۰۴۸ بیتی و حذف گلوگاه پهنای باند حافظه</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/hardware-ai-chips-hbm4-next-gen-memory-standard-1-drip-1161.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/hardware-ai-chips-hbm4-next-gen-memory-standard-1-drip-1161.html</guid>
+      <pubDate>Mon, 19 Oct 2026 22:57:50 GMT</pubDate>
+      <description>تحلیل فنی و جامع HBM4 Memory Standard در زمینه رابط حافظه ۲۰۴۸ بیتی و حذف گلوگاه پهنای باند حافظه به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
