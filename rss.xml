@@ -1759,5 +1759,13 @@
       <description>تحلیل فنی و جامع HBM4 Memory Standard در زمینه رابط حافظه ۲۰۴۸ بیتی و حذف گلوگاه پهنای باند حافظه به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: Liquid Cooling in AI Datacenters؛ گذار از سرمایش هوایی به مایع در خوشه‌های ابرمحاسباتی</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/hardware-ai-chips-ai-datacenter-liquid-cooling-solutions-1-drip-1171.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/hardware-ai-chips-ai-datacenter-liquid-cooling-solutions-1-drip-1171.html</guid>
+      <pubDate>Wed, 21 Oct 2026 17:38:40 GMT</pubDate>
+      <description>تحلیل فنی و جامع Liquid Cooling in AI Datacenters در زمینه گذار از سرمایش هوایی به مایع در خوشه‌های ابرمحاسباتی به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
