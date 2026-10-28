@@ -7632,4 +7632,10 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-langgraph-stateful-workflows-1-drip-1211.html</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

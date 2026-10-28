@@ -2079,5 +2079,13 @@
       <description>تحلیل فنی و جامع Model Context Protocol (MCP) در زمینه استاندارد باز ارتباط ایمن ایجنت‌ها با دیتابیس‌ها و ابزارها به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: LangGraph Stateful Multi-Agent؛ مدیریت وضعیت و همگرایی چرخه‌ای در ماموریت‌های پیچیده</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-langgraph-stateful-workflows-1-drip-1211.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-langgraph-stateful-workflows-1-drip-1211.html</guid>
+      <pubDate>Wed, 28 Oct 2026 19:33:30 GMT</pubDate>
+      <description>تحلیل فنی و جامع LangGraph Stateful Multi-Agent در زمینه مدیریت وضعیت و همگرایی چرخه‌ای در ماموریت‌های پیچیده به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
