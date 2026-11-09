@@ -2479,5 +2479,13 @@
       <description>تحلیل فنی و جامع Self-Healing Code Architectures در زمینه تشخیص باگ در زمان اجرا و تولید هات‌فیکس خودکار به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: Function Calling Reliability؛ تضمین خروجی ساختاریافته JSON در سیستم‌های عملیاتی</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-reliable-structured-output-function-calling-1-drip-1261.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-reliable-structured-output-function-calling-1-drip-1261.html</guid>
+      <pubDate>Mon, 09 Nov 2026 02:48:58 GMT</pubDate>
+      <description>تحلیل فنی و جامع Function Calling Reliability در زمینه تضمین خروجی ساختاریافته JSON در سیستم‌های عملیاتی به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
