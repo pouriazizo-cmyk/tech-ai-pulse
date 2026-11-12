@@ -2559,5 +2559,13 @@
       <description>تحلیل فنی و جامع Function Calling Reliability در زمینه تضمین خروجی ساختاریافته JSON در سیستم‌های عملیاتی به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: RAG vs Long-Context Windows؛ مقایسه دقت بازیابی برداری در برابر حافظه زمینه عظیم</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-rag-vs-long-context-window-architectures-1-drip-1271.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-rag-vs-long-context-window-architectures-1-drip-1271.html</guid>
+      <pubDate>Thu, 12 Nov 2026 01:09:46 GMT</pubDate>
+      <description>تحلیل فنی و جامع RAG vs Long-Context Windows در زمینه مقایسه دقت بازیابی برداری در برابر حافظه زمینه عظیم به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
