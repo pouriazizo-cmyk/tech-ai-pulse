@@ -2719,5 +2719,13 @@
       <description>تحلیل فنی و جامع Guardrails &amp; Safety Frameworks در زمینه جلوگیری از پاسخ‌های توهم‌آمیز و اعتبارسنجی ورودی/خروجی به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
       <author>پروانه خسروی</author>
     </item>
+    <item>
+      <title>تحلیل فنی و عمیق: Local AI with Ollama &amp; vLLM؛ استقرار مدل‌های منبع‌باز روی سرورهای داخلی سازمان‌ها</title>
+      <link>https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-ollama-vllm-local-inference-production-1-drip-1291.html</link>
+      <guid isPermaLink="true">https://pouriazizo-cmyk.github.io/tech-ai-pulse/posts/autonomous-ai-agents-ollama-vllm-local-inference-production-1-drip-1291.html</guid>
+      <pubDate>Tue, 17 Nov 2026 03:27:02 GMT</pubDate>
+      <description>تحلیل فنی و جامع Local AI with Ollama &amp; vLLM در زمینه استقرار مدل‌های منبع‌باز روی سرورهای داخلی سازمان‌ها به همراه بررسی بنچمارک‌ها، چالش‌های پیاده‌سازی و توصیه‌های مهندسی برای متخصصان.</description>
+      <author>امیرحسین پارسا</author>
+    </item>
   </channel>
 </rss>
